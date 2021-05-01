@@ -16,8 +16,8 @@ const  Nav = () =>{
                         </li>
 
                         <li className="nav-item dropdown">
-                            <a className="nav-link dropdown-toggle" href="./properties.html" id="navbardrop"
-                               data-toggle="dropdown">
+                            <a className="nav-link dropdown-toggle"  id="navbardrop"
+                               data-toggle="dropdown" href="#">
                                 Properties
                             </a>
                             <div className="dropdown-menu">
@@ -33,7 +33,7 @@ const  Nav = () =>{
                     </ul>
                     <ul className="navbar-nav ml-md-auto">
                         <li className="nav-item">
-                            <a className="nav-link" href="#search">
+                            <a className="btn btn-sm search-toggle-btn" href="#search" >
                                 <i className="fa fa-2x fa-search"></i>
                             </a>
                         </li>

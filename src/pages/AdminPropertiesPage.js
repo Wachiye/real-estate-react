@@ -37,7 +37,7 @@ export default class AdminPropertiesPage extends Component{
         if(action === "add" || action === "edit"){
             console.log(action)
             return(
-                <AddPropertyPage/ >
+                <AddPropertyPage />
             )
         } else {
 
@@ -100,7 +100,7 @@ const Property = ({property}) => {
                 <input type="checkbox" name="select-all" id={`select-all-${property.id}`} data-select-value={property.id} />
             </td>
             <td className="d-flex align-items-center justify-content-center img-col">
-                <img src={property.image} alt="" className="img-thumbnail img-fluid"  width="48px" height="48px"/>
+                <img src={property.image} alt=""   width="48px" height="48px"/>
             </td>
             <td className="name-col">
                 {property.name}

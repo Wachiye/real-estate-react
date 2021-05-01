@@ -16,7 +16,7 @@ $(document).ready( () => {
                     </div>
                     <div class="alert-body">
                         Your booking has been recorded. To complete booking  
-                        <a href="./checkout.html">Click here</a>
+                        <a href="/checkout">Click here</a>
                     </div>
                 </div>`;
     }
@@ -61,5 +61,8 @@ $(document).ready( () => {
                 elements[i].setAttribute('src',src );
             }
         }
+    });
+    $('.search-toggle-btn').on('click', function(){
+        $('.search-section').slideToggle(500);
     });
 });

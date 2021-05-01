@@ -38,34 +38,23 @@ export default  class PropertyPage extends Component{
 
                         <div className="col-12 col-md-1 mb-2">
                             <div className="thumbnails">
-
-                                <img
-                                    src="./images/single-room-1.jpg"
-                                    alt=""
-                                    className="mb-1 img-thumbnail active"
-                                />
-                                <img
-                                    src="./images/single-room-2.jpg"
-                                    alt=""
-                                    className="mb-1 img-thumbnail"
-                                />
-                                <img
-                                    src="./images/single-room-3.jpg"
-                                    alt=""
-                                    className="mb-1 img-thumbnail"
-                                />
-                                <img
-                                    src="./images/single-room-4.jpg"
-                                    alt=""
-                                    className="mb-1 img-thumbnail"
-                                />
+                                {property.images && property.images.map((img,index) => {
+                                    return(
+                                        <img
+                                            src={img}
+                                            alt=""
+                                            className="mb-1 img-thumbnail active"
+                                        />
+                                    )
+                                })}
+                                
                             </div>
                         </div>
 
                         <div className="col-12 col-md-5 mb-2">
                             <div className="image">
                                 <img
-                                    src="./images/single-room-1.jpg"
+                                    src={property.image}
                                     alt=""
                                     className="img-fluid current_image"
                                 />
@@ -87,7 +76,7 @@ export default  class PropertyPage extends Component{
                                 </p>
                                 <p><span className="stock text-muted mr-1">5</span> in stock</p>
                                 <div className="action">
-                                    <button className="btn btn-warning">Book Now</button>
+                                    <a href={`/checkout?property=${property.id}`} className="btn btn-warning">Book Now</a>
                                 </div>
                             </div>
                         </div>
@@ -147,7 +136,7 @@ export default  class PropertyPage extends Component{
                                         </tr>
                                         </tbody>
                                     </table>
-                                    <div className="mb-2">
+                                    {/* <div className="mb-2">
                                         <button type="button" className="btn btn-dark btn-sm">
                                             Contact Seller
                                         </button>
@@ -193,7 +182,7 @@ export default  class PropertyPage extends Component{
                                                 <button className="btn btn-dark">Send Message</button>
                                             </form>
                                         </div>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                         </div>

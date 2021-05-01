@@ -68,6 +68,29 @@ class AuthService{
             });
         return response;
     }
+
+    async subscribe(data){
+        let response = null;
+        await axios.post("https://localhost:8080/api/auth/subscribe", data)
+            .then(res =>{
+                response = res.data
+            })
+            .catch( err => {
+                console.log({err})
+            });
+        return response;
+    }
+    async unsubscribe(data){
+        let response = null;
+        await axios.post("https://localhost:8080/api/auth/unsubscribe", data)
+            .then(res =>{
+                response = res.data
+            })
+            .catch( err => {
+                console.log({err})
+            });
+        return response;
+    }
 }
 
 export default new AuthService()

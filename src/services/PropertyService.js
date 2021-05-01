@@ -6,6 +6,7 @@ class PropertyService{
         let houses = [];
         await axios.get("http://localhost:8080/api/houses")
            .then( res => {
+               console.log({res});
                 houses = res.data
             })
             .catch( err => {
@@ -60,6 +61,22 @@ class PropertyService{
                 console.log({err});
             })
        return house;
+    }
+    //get a specific house of a particular agent
+    async searchProperties(keywords){
+        let houses = [];
+        await axios.get(`http://localhost:8080/api/houses/search`,
+            {params:{
+                keywords:keywords
+            }
+        })
+           .then( res => {
+                houses = res.data
+            })
+            .catch( err => {
+                console.log({err});
+            })
+       return houses;
     }
     //save house
     async save(data){

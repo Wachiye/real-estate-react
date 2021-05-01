@@ -1,8 +1,143 @@
 import React , {Component} from "react";
+import queryParams from "../utils/queryParams";
 import Subscribe from "../components/Auth/Subscribe";
-
+import PropertyService from "../services/PropertyService";
+import AuthService from "../services/AuthService";
 export default  class CheckoutPage extends Component{
+    constructor(props){
+        super(props);
+
+        this.state = {
+            property:{
+                "price" : 3000,
+                "deposit": 500,
+                "slots":5
+            },
+            response:null,
+
+            first_name:'',
+            last_name:'',
+            email:'',
+            phone:'',
+            slots: 1,
+            mpesa_phone:'',
+            mpesa_code:'',
+
+            sub_username:'',
+            sub_email:''
+        }
+
+        this.getOneById = this.getOneById.bind(this);
+        this.book = this.book.bind(this);
+        this.subscribe = this.subscribe.bind(this);
+
+        this.onChangeSubUsername = this.onChangeSubUsername.bind(this);
+        this.onChangeSubEmail = this.onChangeEmail.bind(this);
+        this.onChangeFirstName = this.onChangeFirstName.bind(this);
+        this.onChangeLastName = this.onChangeLastName.bind(this);
+        this.onChangeEmail = this.onChangeEmail.bind(this);
+        this.onChangePhone = this.onChangePhone.bind(this);
+        this.onChangeSlots = this.onChangeSlots.bind(this);
+        this.onChangeMpesaPhone = this.onChangeMpesaPhone.bind(this);
+        this.onChangeMpesaCode = this.onChangeMpesaCode.bind(this);
+    }
+
+    componentDidMount(){
+        this.getOneById();
+    }
+
+    async getOneById(){
+        let id = queryParams("property");
+        let property = await PropertyService.getOneById(id);
+        this.setState({
+            property: property
+        });
+    }
+
+    onChangeFirstName(e){
+        this.setState({
+            first_name:e.target.value
+        });
+    }
+    onChangeLastName(e){
+        this.setState({
+            last_name:e.target.value
+        });
+    }
+    onChangeEmail(e){
+        this.setState({
+            email:e.target.value
+        });
+    }
+    onChangePhone(e){
+        this.setState({
+            phone:e.target.value
+        });
+    }
+    onChangeSlots(e){
+        this.setState({
+            slots:e.target.value
+        });
+    }
+    onChangeMpesaPhone(e){
+        this.setState({
+            mpesa_phone: e.target.value
+        });
+    }
+    onChangeMpesaCode(e){
+        this.setState({
+            mpesa_code: e.target.value
+        });
+    }
+    async getRecentProperties(){
+        let properties = await PropertyService.getRecent();
+        this.setState({
+            recentProperties: properties
+        });
+    }
+
+    onChangeSubUsername(e){
+        this.setState({
+            sub_username: e.target.value
+        });
+    }
+    onChangeSubEmail(e){
+        this.setState({
+            sub_email: e.target.value
+        });
+    }
+
+    async subscribe(){
+        let {sub_username, sub_email} = this.state;
+        let data = {
+            "username": sub_username,
+            "email": sub_email
+        }
+        let response = await AuthService.subscribe(data);
+
+        this.setState({
+            response: response
+        });
+    }
+    async book(){
+        let {property, first_name, last_name, email, phone, mpesa_phone, mpesa_code, slots} = this.state;
+        let data = {
+            "property_id": property.id,
+            "slots" : slots,
+            "first_name": first_name,
+            "last_name": last_name,
+            "email":email,
+            "phone": phone,
+            "mpesa_phone": mpesa_phone,
+            "mpesa_code": mpesa_code
+        }
+        let response = await PropertyService.book(property.id,data);
+        this.setState({
+            response: response
+        });
+    }
     render(){
+        let {property, slots} = this.state;
         return (
             <main>
                 <div className="container py-2">
@@ -25,44 +160,20 @@ export default  class CheckoutPage extends Component{
                                     <table className="table table-responsive-lg table-bordered">
                                         <thead>
                                         <tr>
-                                            <th>Property</th>
-                                            <th>Capacity</th>
+                                            <th>Name</th>
+                                            <th>Type</th>
                                             <th>Location</th>
-                                            <th>Deposit</th>
+                                            <th>Deposit(once)</th>
+                                            <th>Max Capacity</th>
                                             <th>Slots</th>
-                                            <th>Action</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        {/*loop starts*/}
-                                            <tr>
-                                                <td>Property 1</td>
-                                                <td>Single Room</td>
-                                                <td>Gate</td>
-                                                <td>500</td>
-                                                <td>1</td>
-                                                <td>
-                                                    <ul className="list-inline">
-                                                        <a
-                                                            href="/properties/id"
-                                                            className="list-inline-item btn btn-link btn-sm"
-                                                        >
-                                                            View
-                                                        </a>
-                                                        <a
-                                                            href="/properties/id?action=book"
-                                                            className="list-inline-item btn btn-link btn-sm"
-                                                        >
-                                                            Confirm
-                                                        </a>
-                                                    </ul>
-                                                </td>
-                                            </tr>
-                                        {/*    loop ends*/}
-
+                                        {property && <Property property={property} />}
+                                           
                                         <tr>
                                             <th colSpan="3" className="text-right">Total Deposit</th>
-                                            <td colSpan="3">Ksh <span className="amount">1500</span></td>
+                                            <td colSpan="3">Ksh <span className="amount">{slots > 1 ? slots * property.deposit : property.deposit}</span></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -84,6 +195,7 @@ export default  class CheckoutPage extends Component{
                                                 name="first_name"
                                                 className="form-control form-control-sm"
                                                 placeholder="First Name"
+                                                onChange={this.onChangeFirstName}
                                             />
                                         </div>
                                         <div className="form-group">
@@ -94,6 +206,7 @@ export default  class CheckoutPage extends Component{
                                                 name="last_name"
                                                 className="form-control form-control-sm"
                                                 placeholder="Last Name"
+                                                onChange={this.onChangeLastName}
                                             />
                                         </div>
                                         <div className="form-group">
@@ -104,6 +217,7 @@ export default  class CheckoutPage extends Component{
                                                 name="email"
                                                 className="form-control form-control-sm"
                                                 placeholder="Email Address "
+                                                onChange={this.onChangeEmail}
                                             />
                                         </div>
                                         <div className="form-group">
@@ -114,6 +228,7 @@ export default  class CheckoutPage extends Component{
                                                 name="phone"
                                                 className="form-control form-control-sm"
                                                 placeholder="Phone  Number"
+                                                onChange={this.onChangePhone}
                                             />
                                         </div>
                                     </form>
@@ -130,52 +245,56 @@ export default  class CheckoutPage extends Component{
                                         <div className="col-md-6 mb-1">
                                             <form action="" name="deposit-form" id="deposit-form">
                                                 <div className="form-group">
-                                                    <label htmlFor="deposit_phone">Phone</label>
+                                                    <label htmlFor="slots">Booking Slots</label>
                                                     <input
-                                                        type="tel"
-                                                        id="deposit_phone"
-                                                        name="deposit_phone"
+                                                        type="number"
+                                                        id="slots"
+                                                        name="slots"
                                                         className="form-control form-control-sm"
-                                                        placeholder="Phone  Number to pay with"
+                                                        placeholder="Slots To Book"
+                                                        onChange={this.onChangeSlots}
+                                                        min="1" max={property.slots}
                                                     />
                                                 </div>
                                                 <div className="form-group">
-                                                    <label htmlFor="transaction_id">Transaction ID</label>
+                                                    <label htmlFor="mpesa_phone">Phone</label>
+                                                    <input
+                                                        type="tel"
+                                                        id="mpesa_phone"
+                                                        name="mpesa_phone"
+                                                        className="form-control form-control-sm"
+                                                        placeholder="2547/1XXXXXXXX"
+                                                        onChange={this.onChangeMpesaPhone}
+                                                        pattern="254(7|1)[0-9]{8}"
+                                                    />
+                                                    <span className="form-text text-info small">Enter phone number used in the transaction. Format 254(7/1)XXXXXXXX</span>
+                                                </div>
+                                                <div className="form-group">
+                                                    <label htmlFor="mpesa_code">Transaction CODE</label>
                                                     <input
                                                         type="text"
-                                                        id="transaction_id"
-                                                        name="transaction_id"
+                                                        id="mpesa_code"
+                                                        name="mpesa_code"
                                                         className="form-control form-control-sm"
-                                                        placeholder="Transaction ID"
-                                                        disabled
+                                                        placeholder="MPESA Transaction CODE"
+                                                        onChange={this.onChangeMpesaCode}
                                                     />
                                                 </div>
-                                                <button
+                                                <button type="button"
                                                     className="btn btn-warning btn-sm deposit-btn"
-                                                    id="deposist-btn"
+                                                    id="deposist-btn" onClick={this.book}
                                                 >
-                                                    Make Deposit
-                                                </button>
-                                                <button
-                                                    className="btn btn-sm checkout-btn disabled"
-                                                    id="checkout-btn"
-                                                    disabled
-                                                >
-                                                    Complete Checkout
+                                                    Book Property
                                                 </button>
                                             </form>
                                         </div>
                                         <div className="col-md-6 mb-1 details">
                                             <p className="lead">
-                                                Pay deposit of Ksh <span className="amount">1500</span> to
-                                                MpesaTill Number
-                                                <span className="pay-bill-no">137415</span>
+                                                Pay deposit of Ksh <span className="amount">{slots > 1 ? slots * property.deposit : property.deposit}</span> to
+                                                Mpesa Till Number
+                                                <span className="pay-bill-no ml-1">137415</span>
                                             </p>
-                                            <p>
-                                                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                                Commodi reiciendis laudantium omnis repellat beatae
-                                                blanditiis magnam dignissimos maiores sit tempore!
-                                            </p>
+                                            <p>If your Booking is accepted, you will be required to pay Ksh {slots > 1 ? slots * property.price : property.price} /month</p>
                                         </div>
                                     </div>
                                 </div>
@@ -200,11 +319,26 @@ export default  class CheckoutPage extends Component{
                                     </p>
                                 </div>
                             </div>
-                            <Subscribe height={false}/>
+                            <Subscribe height={false} onChangeEmail={this.onChangeSubEmail} onChangeUsername={this.onChangeSubUsername} subscribeFunction={this.subscribe}/>
                         </div>
                     </div>
                 </div>
             </main>
         );
     }
+}
+
+const Property = ({property}) => {
+    return(
+        <tr>
+            <td>
+                <a href={`/properties/${property.id}`}>{property.name}</a>
+            </td>
+            <td>{property.type}</td>
+            <td>{property.location}</td>
+            <td>{property.deposit}</td>
+            <td>{`${property.capacity} ${property.capacity_unit}`}</td>
+            <td>{property.slots}</td>  
+        </tr>   
+    );
 }

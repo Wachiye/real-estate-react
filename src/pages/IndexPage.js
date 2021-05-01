@@ -1,5 +1,6 @@
 import React , {Component} from "react";
 import Subscribe from "../components/Auth/Subscribe";
+import AuthService from "../services/AuthService";
 import PropertyService from "../services/PropertyService";
 
 export default  class IndexPage extends Component{
@@ -8,10 +9,19 @@ export default  class IndexPage extends Component{
 
         this.state ={
             recentProperties:[],
-            siteInfo: []
+            siteInfo: [],
+            response:null,
+
+            username:'',
+            email:''
         }
 
         this.getRecentProperties = this.getRecentProperties.bind(this);
+        this.subscribe = this.subscribe.bind(this);
+
+        this.onChangeUsername = this.onChangeUsername.bind(this);
+        this.onChangeEmail = this.onChangeEmail.bind(this);
+
     }
 
     componentDidMount(){
@@ -21,6 +31,30 @@ export default  class IndexPage extends Component{
         let properties = await PropertyService.getRecent();
         this.setState({
             recentProperties: properties
+        });
+    }
+
+    onChangeUsername(e){
+        this.setState({
+            username: e.target.value
+        });
+    }
+    onChangeEmail(e){
+        this.setState({
+            email: e.target.value
+        });
+    }
+
+    async subscribe(){
+        let {username, email} = this.state;
+        let data = {
+            "username": username,
+            "email": email
+        }
+        let response = await AuthService.subscribe(data);
+
+        this.setState({
+            response: response
         });
     }
     render(){
@@ -92,7 +126,7 @@ export default  class IndexPage extends Component{
                             </div>
                         </div>
                         <div className="col-md-6 mb-2">
-                            <Subscribe height={true}/>
+                            <Subscribe height={true} onChangeEmail={this.onChangeEmail} onChangeUsername={this.onChangeUsername} subscribeFunction={this.subscribe}/>
                         </div>
                     </div>
                 </div>

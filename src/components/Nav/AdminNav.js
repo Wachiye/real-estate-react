@@ -37,6 +37,12 @@ const AdminNav = () => {
                     </a>
                 </li>
                 <li>
+                    <a href="/admin/users">
+                        <i className="fa fa-users"></i>
+                        Users
+                    </a>
+                </li>
+                <li>
                     <a href="/admin/account">
                         <i className="fa fa-user"></i>
                         Account

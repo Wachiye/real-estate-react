@@ -130,12 +130,12 @@ export default class AddPropertyPage extends Component{
     }
     onChangeImage(e){
         this.setState({
-            image:e.target.value
+            image:e.target.files[0]
         });
     }
     onChangeImages(e){
         this.setState({
-            images:e.target.value
+            images:e.target.files
         });
     }
     
@@ -258,7 +258,7 @@ export default class AddPropertyPage extends Component{
                                                     <button type="button" className="btn btn-sm btn-outline-warning d-inline file-upload-btn"
                                                             data-upload-id="images">Upload
                                                     </button>
-                                                    <input type="file" name="images[]" id="images[]"
+                                                    <input type="file" name="images[]" id="images"
                                                            className="d-none" accept="image/*" multiple max="4"
                                                            data-preview-class="img-preview" onChange={this.onChangeImages}/>
                                                     <div className="display-images my-1 py-2">

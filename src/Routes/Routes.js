@@ -24,6 +24,10 @@ import FAQSPage from "../pages/FAQSPage";
 import DashboardPage from "../pages/DashboardPage";
 import AdminPropertiesPage from "../pages/AdminPropertiesPage";
 import AccountPage from "../pages/AccountPage";
+import MessagesPage from "../pages/MessagesPage";
+import DepositsPage from "../pages/DepositsPage";
+import SubscriptionsPages from "../pages/SubscriptionsPages";
+import UsersPage from "../pages/UsersPage";
 
 const Routes = () => {
     return (
@@ -107,6 +111,30 @@ const Routes = () => {
                     path="/admin/account"
                     exact
                     component={AccountPage}
+                    layout={AdminLayout}
+                />
+                <PublicRoute
+                    path="/admin/messages"
+                    exact
+                    component={MessagesPage}
+                    layout={AdminLayout}
+                />
+                <PublicRoute
+                    path="/admin/deposits"
+                    exact
+                    component={DepositsPage}
+                    layout={AdminLayout}
+                />
+                <PublicRoute
+                    path="/admin/users"
+                    exact
+                    component={UsersPage}
+                    layout={AdminLayout}
+                />
+                <PublicRoute
+                    path="/admin/subscription"
+                    exact
+                    component={SubscriptionsPages}
                     layout={AdminLayout}
                 />
             </Switch>

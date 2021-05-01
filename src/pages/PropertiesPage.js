@@ -73,9 +73,7 @@ export default  class PropertiesPage extends Component{
                                                     <span className="stock text-muted mr-1">5</span> in stock
                                                 </p>
                                                 <div className="action">
-                                                    <button className="btn btn-warning book-property-btn"
-                                                            data-property-id="1">Book Now
-                                                    </button>
+                                                    <a href={`/checkout?property=${item.id}`} className="btn btn-warning">Book Now</a>
                                                     <a href={`/properties/${item.id}`}
                                                     className="btn btn-link float-lg-right"> Read
                                                         More</a>

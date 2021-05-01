@@ -25,44 +25,19 @@ const FilterNav = () => {
                         Select Location
                     </button>
                     <div className="dropdown-menu">
-                        <a className="dropdown-item" href="./properties.html?location=loc_1">Loc
+                        <a className="dropdown-item" href="./properties?location=loc_1">Loc
                             1
                             <span className="badge badge-danger pull-right">8</span>
                         </a>
-                        <a className="dropdown-item" href="./properties.html?location=loc_2">Loc
+                        <a className="dropdown-item" href="./properties?location=loc_2">Loc
                             2
                             <span className="badge badge-danger pull-right">4</span>
                         </a>
-                        <a className="dropdown-item" href="./properties.html?location=loc_n">Loc
+                        <a className="dropdown-item" href="./properties?location=loc_n">Loc
                             n
                             <span className="badge badge-danger pull-right">2</span>
                         </a>
-                        <a className="dropdown-item" href="./properties.html?location=all">All
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <hr />
-            <div className="form-row mb-1">
-                <div className="col-sm-4">Capacity</div>
-                <div className="col-sm-8">
-                    <button className="btn btn-sm dropdown-toggle" data-toggle="dropdown">
-                        Select Capacity
-                    </button>
-                    <div className="dropdown-menu">
-                        <a className="dropdown-item"
-                           href="./properties.html?capacity=single_room">Single Room
-                            <span className="badge badge-danger pull-right">4</span>
-                        </a>
-                        <a className="dropdown-item"
-                           href="./properties.html?capacity=bed_sitter">Bed Sitter
-                            <span className="badge badge-danger pull-right">7</span>
-                        </a>
-                        <a className="dropdown-item"
-                           href="./properties.html?capacity=one_bed_room">1 Bed Room
-                            <span className="badge badge-danger pull-right">1</span>
-                        </a>
-                        <a className="dropdown-item" href="./properties.html?capacity=all">All
+                        <a className="dropdown-item" href="./properties?location=all">All
                         </a>
                     </div>
                 </div>
