@@ -1,10 +1,12 @@
 import Nav from "../Nav/Nav";
+import Search from "../Search/Search";
 const CarouselHeader = () => {
     return (
         <header>
 
             <div className="container p-0">
                 <Nav />
+                <Search />
                 <div id="slider" className="carousel slide" data-ride="carousel">
 
                     <ul className="carousel-indicators">

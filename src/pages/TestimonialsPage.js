@@ -77,17 +77,17 @@ export default  class TestimonialsPage extends Component{
                                         <div className="modal-body text-left">
                                             <form action="" id="comment-form" name="comment-form">
                                                 <div className="form-group">
-                                                    <label for="full_name">Full Name</label>
+                                                    <label htmlFor="full_name">Full Name</label>
                                                     <input type="text" name="full_name" id="full_name" className="form-control"
                                                         placeholder="Full Name" />
                                                 </div>
                                                 <div className="form-group">
-                                                    <label for="email">Email</label>
+                                                    <label htmlFor="email">Email</label>
                                                     <input type="email" name="email" id="email" className="form-control"
                                                         placeholder="Email Address" />
                                                 </div>
                                                 <div className="form-group">
-                                                    <label for="message">Message</label>
+                                                    <label htmlFor="message">Message</label>
                                                     <textarea name="message" id="message" className="form-control" placeholder="Your Message"
                                                         rows="5"></textarea>
                                                 </div>

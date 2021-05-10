@@ -28,6 +28,7 @@ import MessagesPage from "../pages/MessagesPage";
 import DepositsPage from "../pages/DepositsPage";
 import SubscriptionsPages from "../pages/SubscriptionsPages";
 import UsersPage from "../pages/UsersPage";
+import NotFoundPage from "../pages/NotFoundPage";
 
 const Routes = () => {
     return (
@@ -136,6 +137,12 @@ const Routes = () => {
                     exact
                     component={SubscriptionsPages}
                     layout={AdminLayout}
+                />
+                <PublicRoute
+                    path="*"
+                    exact
+                    component={NotFoundPage}
+                    layout={PublicLayout}
                 />
             </Switch>
         </Router>

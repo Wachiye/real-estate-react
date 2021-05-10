@@ -1,8 +1,17 @@
+import AuthService from "../../services/AuthService";
+
+
 const AdminNav = () => {
+    const logout = async () =>{
+        let res = await AuthService.logout();
+        if(res.logout){
+            window.location = "/";
+        }
+    }
     return (
         <div className="navigation">
             <div className="close show-nav-btn fa fa-close position-absolute text-light d-lg-none"
-                 data-nav-class="navigation"></div>
+                 data-nav-className="navigation"></div>
             <ul className="list-unstyled">
                 <li>
                     <a href="/admin/dashboard">
@@ -57,7 +66,7 @@ const AdminNav = () => {
                 </li>
                 <hr />
                 <li>
-                    <a href="/logout">
+                    <a href="/logout" onClick={()=>logout}>
                         <i className="fa fa-sign-out"></i>
                         Logout
                     </a>

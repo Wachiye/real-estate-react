@@ -38,7 +38,7 @@ export default  class PropertyPage extends Component{
 
                         <div className="col-12 col-md-1 mb-2">
                             <div className="thumbnails">
-                                {property.images && property.images.map((img,index) => {
+                                {property.images && property.images.length > 0 && property.images.map((img,index) => {
                                     return(
                                         <img
                                             src={img}

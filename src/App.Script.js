@@ -1,20 +1,20 @@
 import * as $ from "jquery/dist/jquery.min";
 $(document).ready( () => {
     function creatToast(){
-        return ` <div class="alert alert-dismissible position-absolute w-75" role="alert" >
-                    <div class="alert-header">
-                        <i class="fa  fa-cart-plus"></i>
-                        <strong class="mr-auto">Booked
-                            <small class="text-muted ml-auto">
+        return ` <div className="alert alert-dismissible position-absolute w-75" role="alert" >
+                    <div className="alert-header">
+                        <i className="fa  fa-cart-plus"></i>
+                        <strong className="mr-auto">Booked
+                            <small className="text-muted ml-auto">
                                 <span>1</span> Items in cart
                             </small>
                         </strong>
                         
-                        <button type="button" class=" mb-1 close" data-dismiss="alert" aria-label="Close">
+                        <button type="button" className=" mb-1 close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="alert-body">
+                    <div className="alert-body">
                         Your booking has been recorded. To complete booking  
                         <a href="/checkout">Click here</a>
                     </div>
@@ -64,5 +64,8 @@ $(document).ready( () => {
     });
     $('.search-toggle-btn').on('click', function(){
         $('.search-section').slideToggle(500);
+    });
+    $('.filter-nav-show').on('click', function(){
+        $('.filter-nav').slideToggle(500);
     });
 });

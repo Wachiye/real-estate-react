@@ -47,13 +47,7 @@ export default class AdminPropertiesPage extends Component{
                         <h3 className="text-primary d-inline-block">Properties</h3>
                         <a href="/admin/properties?action=add" className="btn btn-sm deco-none btn-success d-inline-block">New</a>
                     </div>
-                    <div className="search">
-                        <div className="search-form">
-                            <input type="search" className="input" name="search" id="search" />
-                                <button className="btn btn-sm btn-dark text-light fa  fa-2x fa-search"></button>
-                        </div>
-
-                    </div>
+                    
                     <div className="card bg-transparent border-0">
                         <div className="card-body ">
                             <table className="table table-bordered table-responsive-lg bg-light">

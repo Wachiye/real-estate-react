@@ -72,7 +72,7 @@ export default  class IndexPage extends Component{
                                 fugiat optio.
                                 Placeat, adipisci cum!
                             </p>
-                            <a href="./about.html">
+                            <a href="/about">
                                 <i className="fa fa-arrow-right"> Read More</i>
                             </a>
                         </div>

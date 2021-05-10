@@ -9,10 +9,21 @@ export default  class PropertiesPage extends Component{
         super(props);
 
         this.state = {
-            properties:[]
+            properties:[],
+            filter:false,
+            filteredProperties:[],
+            sort_field:'capacity',
+            price_min:1,
+            price_max:1
         }
 
         this.getAll = this.getAll.bind(this);
+        this.filterProperties = this.filterProperties.bind(this);
+        this.sortProperties = this.sortProperties.bind(this);
+
+        this.onChangePriceMin = this.onChangePriceMin.bind(this);
+        this.onChangePriceMax = this.onChangePriceMax.bind(this);
+        this.onChangeSort = this.onChangeSort.bind(this);
     }
 
     componentDidMount(){
@@ -24,10 +35,54 @@ export default  class PropertiesPage extends Component{
         this.setState({
             properties: properties
         });
-        console.log( this.state.properties);
     }
+    async filterProperties(){
+        let {price_min, price_max} = this.state;
+        let filteredProperties = this.state.properties.filter( a => a.price >= price_min && a.price <= price_max);
+        
+        if(filteredProperties.length >= 1){
+            this.setState({
+                filter:true,
+                filteredProperties: filteredProperties
+            });
+        }else{
+            this.setState({
+                filter: false,
+                filteredProperties: []
+            });
+        }
+    }
+
+    async sortProperties(){
+        let {sort_field} = this.state;
+        this.setState({
+            properties: [...this.state.properties].sort( (a,b) => {
+                return a[sort_field] - b[sort_field]}
+            )
+        });
+    }
+
+    onChangePriceMin(e){
+        this.setState({
+            price_min: e.target.value
+        });
+    }
+
+    onChangePriceMax(e){
+        this.setState({
+            price_max: e.target.value
+        });
+    }
+
+    onChangeSort(e){
+        this.setState({
+            sort_field: e.target.value
+        });
+        console.log(e.target.value);
+    }
+
     render(){
-        let {properties} = this.state;
+        let {properties, filter, filteredProperties} = this.state;
         return (
             <main>
                 <div className="container py-2">
@@ -39,49 +94,29 @@ export default  class PropertiesPage extends Component{
 
                     <div className="row mb-3 properties-list">
 
-                        <div className="col-sm-12 col-lg-4 mb-2 d-none d-lg-block filter-nav">
-                            <FilterNav />
+                        <div className="col-lg-4 mb-2 filter-nav">
+                            <FilterNav onChangePriceMax={this.onChangePriceMax} onChangePriceMin={this.onChangePriceMin}
+                            onChangeSort={this.onChangeSort} filterFunction={this.filterProperties} sortFunction={this.sortProperties} />
                         </div>
                         <div className="col-lg-8 mb-2 ">
 
                             <div className="filter-nav-show position-fixed d-lg-none"
                                  style={{top:"50%", zIndex:"2", marginLeft:"-10px"}}>
-                                <i className="fa fa-2x fa-caret-left"></i>
+                                <i className="fa fa-caret-left"> </i>Filter
                             </div>
 
                             <div className="properties">
-                                {properties && properties.map((item, index)=>{
+                                {filter ? (filteredProperties && filteredProperties.map((item, index)=>{
                                     return(
-                                        <div className="property" id="property-1" key={index}>
-                                            <div className="property-image">
-                                                <img src="./images/single-room-1.jpg" alt=""
-                                                    className="img-thumbnail img-fluid" />
-                                            </div>
-                                            <div className="property-body p-2">
-                                                <h3 className="title no-u">{item.houseName}</h3>
-                                                <p className="desc">{item.description}</p>
-                                                <p>Pay Ksh
-                                                    <span className="text-success small price mx-1">
-                                                        {item.price}
-                                                    </span>
-                                                    /month
-                                                </p>
-                                                <p> Book at Ksh
-                                                    <span className="deposit mx-1">{item.deposit}</span>
-                                                </p>
-                                                <p>
-                                                    <span className="stock text-muted mr-1">5</span> in stock
-                                                </p>
-                                                <div className="action">
-                                                    <a href={`/checkout?property=${item.id}`} className="btn btn-warning">Book Now</a>
-                                                    <a href={`/properties/${item.id}`}
-                                                    className="btn btn-link float-lg-right"> Read
-                                                        More</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    )
-                                })}
+                                        <Property item={item} key={index} />
+                                    );
+                                })):(
+                                    properties && properties.map((item, index)=>{
+                                        return(
+                                            <Property item={item} key={index} />
+                                        );
+                                    })
+                                )}
                             </div>
                         </div>
                     </div>
@@ -118,4 +153,37 @@ export default  class PropertiesPage extends Component{
             </main>
         );
     }
+}
+
+const Property = ({item}) => {
+    return(
+        <div className="property" id={`property-${item.id}`}>
+            <div className="property-image">
+                <img src={item.image} alt=""
+                    className="img-thumbnail img-fluid" />
+            </div>
+            <div className="property-body p-2">
+                <h3 className="title no-u">{item.houseName}</h3>
+                <p className="desc">{item.description}</p>
+                <p>Pay Ksh
+                    <span className="text-success small price mx-1">
+                        {item.price}
+                    </span>
+                    /month
+                </p>
+                <p> Book at Ksh
+                    <span className="deposit mx-1">{item.deposit}</span>
+                </p>
+                <p>
+                    <span className="stock text-muted mr-1">5</span> in stock
+                </p>
+                <div className="action">
+                    <a href={`/checkout?property=${item.id}`} className="btn btn-warning">Book Now</a>
+                    <a href={`/properties/${item.id}`}
+                    className="btn btn-link float-lg-right"> Read
+                        More</a>
+                </div>
+            </div>
+        </div>
+    );
 }

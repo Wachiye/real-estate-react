@@ -260,7 +260,7 @@ export default class AddPropertyPage extends Component{
                                                     </button>
                                                     <input type="file" name="images[]" id="images"
                                                            className="d-none" accept="image/*" multiple max="4"
-                                                           data-preview-class="img-preview" onChange={this.onChangeImages}/>
+                                                           data-preview-className="img-preview" onChange={this.onChangeImages}/>
                                                     <div className="display-images my-1 py-2">
                                                         <div className="image d-inline">
                                                             <img src="" alt="" className="img-thumbnail img-preview"

@@ -1,4 +1,12 @@
+import AuthService from "../../services/AuthService";
+
 const AdminHeader = () =>{
+    const logout = async () =>{
+        let res = await AuthService.logout();
+        if(res.logout){
+            window.location = "/";
+        }
+    }
     return(
         <div className="header">
             <div className="container-fluid">
@@ -25,7 +33,7 @@ const AdminHeader = () =>{
                                 <div className="dropdown-menu">
                                     <a className="dropdown-item" href="/admin/account#details">Edit Account</a>
                                     <div className="dropdown-divider"></div>
-                                    <a className="dropdown-item" href="/auth/logout">Logout</a>
+                                    <a className="dropdown-item" href="/logout" onClick={()=>logout}>Logout</a>
                                 </div>
                             </li>
                         </ul>

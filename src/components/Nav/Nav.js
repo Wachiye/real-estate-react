@@ -8,28 +8,18 @@ const  Nav = () =>{
                 </button>
                 <div className="collapse navbar-collapse" id="navbar">
                     <ul className="navbar-nav mr-auto">
-                        <li className="nav-item active">
+                        <li className="nav-item">
                             <a className="nav-link" href="/">Home</a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link" href="/about">About</a>
                         </li>
-
                         <li className="nav-item dropdown">
-                            <a className="nav-link dropdown-toggle"  id="navbardrop"
-                               data-toggle="dropdown" href="#">
-                                Properties
-                            </a>
-                            <div className="dropdown-menu">
-                                <a className="dropdown-item" href="/properties?type=single_room">Single Room</a>
-                                <a className="dropdown-item" href="/properties?type=single_room">Bed Sitter</a>
-                                <a className="dropdown-item" href="/properties?type=single_room">Other</a>
-                            </div>
+                            <a className="nav-link"  href="/properties" >Properties</a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link" href="/contact">Contact Us</a>
                         </li>
-
                     </ul>
                     <ul className="navbar-nav ml-md-auto">
                         <li className="nav-item">

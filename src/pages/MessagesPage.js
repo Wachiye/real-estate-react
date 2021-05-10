@@ -63,12 +63,7 @@ export default class  MessagesPage extends Component{
                 <div className="title">
                     <h3 className="text-primary">Messages</h3>
                 </div>
-                <div className="search">
-                    <div className="search-form">
-                        <input type="search" className="input" name="search" id="search" />
-                        <button className="btn btn-sm btn-dark text-light fa  fa-2x fa-search">Search</button>
-                    </div>
-                </div>
+                
                 <div className="messages">
                     {messages && messages.map((item, index) => {
                         return(

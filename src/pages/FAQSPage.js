@@ -56,22 +56,22 @@ export default  class FAQSPage extends Component{
                                             <div className="modal-body text-left">
                                                 <form action="" id="comment-form" name="comment-form">
                                                     <div className="form-group">
-                                                        <label for="full_name">Full Name</label>
+                                                        <label htmlFor="full_name">Full Name</label>
                                                         <input type="text" name="full_name" id="full_name" className="form-control"
                                                             placeholder="Full Name" />
                                                     </div>
                                                     <div className="form-group">
-                                                        <label for="email">Email</label>
+                                                        <label htmlFor="email">Email</label>
                                                         <input type="email" name="email" id="email" className="form-control"
                                                             placeholder="Email Address" />
                                                     </div>
                                                     <div className="form-group">
-                                                        <label for="question">Your Question</label>
+                                                        <label htmlFor="question">Your Question</label>
                                                         <input type="text" name="question" id="question" className="form-control"
                                                             placeholder="Write your question here" />
                                                     </div>
                                                     <div className="form-group">
-                                                        <label for="message">Extra information</label>
+                                                        <label htmlFor="message">Extra information</label>
                                                         <textarea name="message" id="message" className="form-control" placeholder="Your Message"
                                                             rows="5"></textarea>
                                                     </div>
