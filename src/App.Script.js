@@ -62,6 +62,18 @@ $(document).ready( () => {
             }
         }
     });
+    // answers
+    $('.show-answer-btn').on( 'click', (evt) => {
+        evt.preventDefault();
+        let answers = $('.answer');
+        for (let i = 0; i < answers.length; i++) {
+            
+            if(!answers[i].classList.contains('d-none'))
+                answers[i].classList.add('d-none')
+        }
+        let elm = evt.target.getAttribute('data-show-id');
+        $(`#${elm}`).toggleClass('d-none');
+    });
     $('.search-toggle-btn').on('click', function(){
         $('.search-section').slideToggle(500);
     });

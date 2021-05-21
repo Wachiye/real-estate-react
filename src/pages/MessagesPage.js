@@ -21,7 +21,15 @@ export default class  MessagesPage extends Component{
         this.deleteMessage = this.deleteMessage.bind(this);
         //this.replyMessage = this.replyMessage.bind(this);
     }
-
+    componentDidMount(){
+        let id = queryParams("id");
+        if(id){
+            this.getOneById();
+        }
+        else{
+            this.getAllMessages();
+        }
+    }
     async getAllMessages(){
         let messages = await MessageService.getAll();
         this.setState({
@@ -87,7 +95,7 @@ const Message = ({message}) => {
                         height="64" />
             </div>
             <div className="message-body">
-                <h3 className="text-primary d-inline">{message.username || ''}</h3>
+                <h3 className="text-primary d-inline">{`${message.first_name} ${message.last_name}` || ''}</h3>
                 <small className="text-muted d-inline-block"> {message.date || ''}</small>
                 <ul className="list-inline mb-2">
                     <li className="list-inline-item">
@@ -99,14 +107,14 @@ const Message = ({message}) => {
                         <a href={`tel:${message.phone || '' }`}>{message.phone || '' }</a>
                     </li>
                 </ul>
-                <p className={message.read ? 'font-weight-light' : 'font-weight-bold'}> {message.message || '' }</p>
+                <p className={message.status ? 'font-weight-light' : 'font-weight-bold'}> {message.message || '' }</p>
                 <div className="action-list d-inline-flex justify-content-between align-items-center">
                     <input type="checkbox" name="select-all" id="select-all-1" />
                     <button className="btn btn-sm mx-2">
                         <i className="fa fa-reply text-primary"></i>
                     </button>
                     <button type="button" className="btn btn-sm">
-                        <i className="fa fa-trash text-danger" onClick={this.deleteMessage}></i>
+                        <i className="fa fa-trash text-danger" onClick={()=>this.deleteMessage(message.id)}></i>
                     </button>
                 </div>
             </div>

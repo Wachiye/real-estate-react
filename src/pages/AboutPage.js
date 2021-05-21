@@ -46,10 +46,38 @@ export default  class AboutPage extends Component{
                         <div className="col-12 mb-2 members">
                             {/*team members loop here*/}
                             <div className="card bg-transparent border-secondary member">
-                                <img src="./images/member-1.jpg" alt="" className="card-img-top w-100" />
+                                <img src="./images/jeunice.jpg" alt="" className="card-img-top w-100" />
                                     <div className="card-body member-body">
-                                        <h5 className="card-title">Person XYZ</h5>
-                                        <small className="card-text">Job Title </small>
+                                        <h5 className="card-title">Mwakisha Jeunice</h5>
+                                        <h6 className="card-subtitle">Backend Developer</h6>
+                                    </div>
+                            </div>
+                            <div className="card bg-transparent border-secondary member">
+                                <img src="./images/wachiye.jpg" alt="" className="card-img-top w-100" />
+                                    <div className="card-body member-body">
+                                        <h5 className="card-title">Wachiye Sirah</h5>
+                                        <h6 className="card-subtitle">Frontend Developer </h6>
+                                    </div>
+                            </div>
+                            <div className="card bg-transparent border-secondary member">
+                                <img src="./images/wachiye.jpg" alt="" className="card-img-top w-100" />
+                                    <div className="card-body member-body">
+                                        <h5 className="card-title">Ogembo Eugene</h5>
+                                        <h6 className="card-subtitle">Backend Developer </h6>
+                                    </div>
+                            </div>
+                            <div className="card bg-transparent border-secondary member">
+                                <img src="./images/wachiye.jpg" alt="" className="card-img-top w-100" />
+                                    <div className="card-body member-body">
+                                        <h5 className="card-title">Mwendwa Dennis</h5>
+                                        <h6 className="card-subtitle">Frontend Developer</h6>
+                                    </div>
+                            </div>
+                            <div className="card bg-transparent border-secondary member">
+                                <img src="./images/xavier.jpg" alt="" className="card-img-top w-100" />
+                                    <div className="card-body member-body">
+                                        <h5 className="card-title">Oduor Xavier</h5>
+                                        <h6 className="card-subtitle">Backend Developer</h6>
                                     </div>
                             </div>
                             {/*end of loop*/}

@@ -3,16 +3,20 @@ import queryParams from "../utils/queryParams";
 import Subscribe from "../components/Auth/Subscribe";
 import PropertyService from "../services/PropertyService";
 import AuthService from "../services/AuthService";
+import DepositService from "../services/DepositService";
+
+import showText from "../utils/showText";
+
+import {baseURL} from "../services/http";
+import wait from "../utils/wait";
+
+import * as $ from "jquery";
 export default  class CheckoutPage extends Component{
     constructor(props){
         super(props);
 
         this.state = {
-            property:{
-                "price" : 3000,
-                "deposit": 500,
-                "slots":5
-            },
+            property:{},
             response:null,
 
             first_name:'',
@@ -40,6 +44,8 @@ export default  class CheckoutPage extends Component{
         this.onChangeSlots = this.onChangeSlots.bind(this);
         this.onChangeMpesaPhone = this.onChangeMpesaPhone.bind(this);
         this.onChangeMpesaCode = this.onChangeMpesaCode.bind(this);
+
+        this.pay = this.pay.bind(this);
     }
 
     componentDidMount(){
@@ -107,6 +113,33 @@ export default  class CheckoutPage extends Component{
         });
     }
 
+    async pay(){
+        showText("Please Wait","pay-btn");
+        let { mpesa_phone, slots, property }  = this.state;
+        let amount = slots > 1 ? slots * property.deposit : property.deposit;
+        let purpose = `PAY FOR PROPERTY ${property.id}`;
+
+        let pay_data = {
+            "phone": mpesa_phone,
+            "amount": amount,
+            "purpose": purpose,
+            "callback_url":   `${baseURL}/deposits/mpesa/process`
+        };
+
+        let response = await DepositService.pay(pay_data);
+        showText(response.CustomerMessage,"pay-btn");
+
+        wait(10);
+        
+        let {data} = await DepositService.checkPay(response.CheckoutRequestID);
+
+        console.log(data);
+
+        // if(data.mpesa_code !== null){
+        //     $('#mpesa_code').val(data.mpesa_code);
+        // }
+
+    }
     async subscribe(){
         let {sub_username, sub_email} = this.state;
         let data = {
@@ -268,6 +301,10 @@ export default  class CheckoutPage extends Component{
                                                         pattern="254(7|1)[0-9]{8}"
                                                     />
                                                     <span className="form-text text-info small">Enter phone number used in the transaction. Format 254(7/1)XXXXXXXX</span>
+                                                    <button type="button"
+                                                        className="btn btn-warning btn-sm deposit-btn"
+                                                        id="pay-btn" onClick={this.pay}
+                                                    >Pay Now</button>
                                                 </div>
                                                 <div className="form-group">
                                                     <label htmlFor="mpesa_code">Transaction CODE</label>
@@ -277,11 +314,11 @@ export default  class CheckoutPage extends Component{
                                                         name="mpesa_code"
                                                         className="form-control form-control-sm"
                                                         placeholder="MPESA Transaction CODE"
-                                                        onChange={this.onChangeMpesaCode}
+                                                        onChange={this.onChangeMpesaCode} disabled
                                                     />
                                                 </div>
                                                 <button type="button"
-                                                    className="btn btn-warning btn-sm deposit-btn"
+                                                    className="btn btn-warning btn-sm deposit-btn d-none"
                                                     id="deposist-btn" onClick={this.book}
                                                 >
                                                     Book Property

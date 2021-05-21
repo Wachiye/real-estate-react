@@ -17,24 +17,24 @@ const CarouselHeader = () => {
 
                     <div className="carousel-inner">
                         <div className="carousel-item active">
-                            <img src="./images/bg.jpg" alt="" className="img-fluid w-100"  />
+                            <img src="./images/house2.jpg" alt="" className="img-fluid w-100"  />
                             <div className="carousel-caption">
-                                <h3 className="caption-title">Individual/Attached Dwelling</h3>
-                                <p className="caption-text">We had such a great time in LA!</p>
+                                <h3 className="caption-title">Apartments</h3>
+                                <p className="caption-text">Just in time one bedroom</p>
                             </div>
                         </div>
                         <div className="carousel-item">
-                            <img src="./images/bg-1.jpg" alt="" className="img-fluid w-100" />
+                            <img src="./images/house1.jpg" alt="" className="img-fluid w-100" />
                             <div className="carousel-caption">
                                 <h3 className="caption-title">Single Family Dwelling</h3>
-                                <p className="caption-text">We had such a great time in LA!</p>
+                                <p className="caption-text">Fair and affordable during holidays</p>
                             </div>
                         </div>
                         <div className="carousel-item">
                             <img src="./images/bed-sitter-1.jpg" alt="" className="img-fluid w-100" />
                             <div className="carousel-caption">
-                                <h3 className="caption-title">Apartments</h3>
-                                <p className="caption-text">We had such a great time in LA!</p>
+                                <h3 className="caption-title">Individual/Attached Dwelling</h3>
+                                <p className="caption-text">Good for students and single commuters</p>
                             </div>
                         </div>
                     </div>

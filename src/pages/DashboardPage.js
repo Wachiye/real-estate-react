@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-
 export default class DashboardPage extends Component{
     constructor(props){
         super(props);
@@ -13,6 +12,7 @@ export default class DashboardPage extends Component{
             deposit_amount:0,
         }
     }
+
     render() {
         let {deposits} = this.state;
         return(

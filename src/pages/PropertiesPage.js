@@ -163,7 +163,7 @@ const Property = ({item}) => {
                     className="img-thumbnail img-fluid" />
             </div>
             <div className="property-body p-2">
-                <h3 className="title no-u">{item.houseName}</h3>
+                <h3 className="title no-u">{item.name}</h3>
                 <p className="desc">{item.description}</p>
                 <p>Pay Ksh
                     <span className="text-success small price mx-1">
@@ -175,7 +175,7 @@ const Property = ({item}) => {
                     <span className="deposit mx-1">{item.deposit}</span>
                 </p>
                 <p>
-                    <span className="stock text-muted mr-1">5</span> in stock
+                    <span className="stock text-muted mr-1">{item.slots}</span> in stock
                 </p>
                 <div className="action">
                     <a href={`/checkout?property=${item.id}`} className="btn btn-warning">Book Now</a>

@@ -14,10 +14,23 @@ html, body{
     gap:10px;
     background: #F5F5F5;
 }
+.navbar{
+    height: fit-content;
+    background: #1789FC !important;
+}
+.nav-item{
+    height: fit-content;
+}
 .nav-item, .nav-link{
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     font-weight: bolder;
     cursor: pointer;
+    color: #DCE0D9 !important;
+}
+
+.nav-link:hover{
+    border-bottom: 1px solid #DCE0D9 !important ;
+    color: #DCE0D9 !important ;
 }
 .carousel-inner > .carousel-item > img{
     all: initial;
@@ -34,8 +47,8 @@ html, body{
     width: 100%;
     left:0;
     bottom: 5px;
-    background: linear-gradient( rgb(0,0,0,0),  rgb(0,0,0,0.1));
-    color:rgb(241, 207, 12);
+    background: linear-gradient(rgba(83, 86, 87,0.2),(rgba(83, 86, 87,0.6)));
+    color: #DCE0D9 !important;
     margin-top: 20px;
 }
 .carousel-caption > .caption-title{
@@ -109,7 +122,7 @@ html, body{
     background:#fff ;
     color:  #078;
     border: 1px solid #078;
-    max-height: 360px;
+    max-height: 220px;
 }
 .member img{
     all: initial;
@@ -118,7 +131,11 @@ html, body{
     -o-object-fit: cover;
     object-position: center;
     -o-object-position: center;
-    max-height: 150px;
+    height: 150px;
+}
+.member-body{
+    padding: 0 !important;
+    text-align: center;
 }
 .links a, .apply-btn{
     text-decoration: none;
@@ -349,8 +366,8 @@ a.deco-none{
 .navigation a:not(.list-inline-item){
     width: 100% !important;
     text-decoration: none;
-    color: #A5A5A5;
-    font-size: 1.2rem;
+    color: #F5F5F5;
+    font-size: 1.25rem;
 }
 .navigation .fa{
     width: 35px;
@@ -360,8 +377,8 @@ a.deco-none{
     background: #A5A5A5;
 }
 .navigation li:not(.group):hover, .navigation .group a:hover{
-    background: #F5F5F5;
-    color:#343340;
+    background: #252121;
+    color:#dfddf7;
     border-radius: 10px;
 }
 .navigation .badge-pill{
@@ -375,13 +392,15 @@ a.deco-none{
     justify-content: center;
     align-items: center;
     text-align: center;
-    text-decoration: none;
+    text-decoration: none !important;
     border-radius: 50%;
     border: 1px solid #078;
     padding: 3px;
     color: #078;
 }
-
+.follow a:hover{
+    color: #A5A5A5;
+}
 .navigation.active{
     left:0;
     height: 100vh;
@@ -640,7 +659,7 @@ a.deco-none{
         width: 100%;
         height: 100vh;
         display: grid;
-        grid-template-columns: 240px 2fr;
+        grid-template-columns: 270px 2fr;
         grid-template-rows: 70px 2fr 70px;
         grid-template-areas:
         "header header"
@@ -648,6 +667,7 @@ a.deco-none{
         "navigation footer";
         flex-shrink: 0;
     }
+
     .filter-nav{
         display: block !important;
         position: relative !important;
@@ -662,6 +682,7 @@ a.deco-none{
         position: fixed;
         top:70px;
         left: 0;
+        width: 270px;
         height: 100vh;
         overflow-y: auto;
         grid-area: navigation;;

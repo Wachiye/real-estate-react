@@ -1,4 +1,4 @@
-import axios from "axios";
+import Http from "./http";
 
 class AuthService{
     //login
@@ -9,7 +9,7 @@ class AuthService{
         };
         let response = null;
 
-        await axios.post("https://localhost:8080/api/auth/login", data)
+        await Http.post("auth/login", data)
             .then(res =>{
                 response = res.data
                 //store token
@@ -26,7 +26,7 @@ class AuthService{
         let data = {
             "token": token
         }
-        await axios.post("https://localhost:8080/api/auth/logout", data)
+        await Http.post("/auth/logout", data)
             .then(res =>{
                 response = res.data
             })
@@ -47,7 +47,7 @@ class AuthService{
             "token": token
         }
         let response = false;
-        await axios.post("https://localhost:8080/api/auth/verify", data)
+        await Http.post("/auth/verify", data)
             .then(res =>{
                 response = res.data
             })
@@ -59,7 +59,7 @@ class AuthService{
 
     async changePassword(user_id, data){
         let response = null;
-        await axios.post("https://localhost:8080/api/auth/pwd", data)
+        await Http.post("/auth/pwd", data)
             .then(res =>{
                 response = res.data
             })
@@ -71,7 +71,7 @@ class AuthService{
 
     async subscribe(data){
         let response = null;
-        await axios.post("https://localhost:8080/api/auth/subscribe", data)
+        await Http.post("/auth/subscribe", data)
             .then(res =>{
                 response = res.data
             })
@@ -82,7 +82,7 @@ class AuthService{
     }
     async unsubscribe(data){
         let response = null;
-        await axios.post("https://localhost:8080/api/auth/unsubscribe", data)
+        await Http.post("/auth/unsubscribe", data)
             .then(res =>{
                 response = res.data
             })

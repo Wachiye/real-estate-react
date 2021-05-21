@@ -1,8 +1,7 @@
 import React, {Component} from "react";
 import queryParams from "../utils/queryParams";
 import UserService from "../services/UserService";
-// import Pagination from "../components/pagination/Pagination";
-import Alert from "../components/Alert/Alert";
+
 
 export default class UsersPage extends Component{
     constructor(props){
@@ -121,14 +120,14 @@ export default class UsersPage extends Component{
                             <tbody className="users">
                                 {users && users.map( (user, index) => {
                                     return(
-                                        <tr className={user.type}>
+                                        <tr className={user.type} key={index}>
                                             <td className="select-col">
                                                 <input type="checkbox" className="select" name="select" id={`select-${user.id}`} data-select-value={user.id} />
                                             </td>
                                             <td className="img-col">
                                                 <img src={user.image || ''} alt=""  width="48" height="48"/>
                                             </td>
-                                            <td className="name-col">{user.name ||''}</td>
+                                            <td className="name-col">{`${user.name} || ${user.first_name} ${user.last_name}`}</td>
                                             <td className="email-col">{user.email ||''}</td>
                                             <td className="phone-col">{user.phone || ''}</td>
                                             <td className="type-col">{user.type }</td>

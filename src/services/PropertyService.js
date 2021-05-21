@@ -1,10 +1,10 @@
-import axios from "axios";
+import Http from "./http";
 
 class PropertyService{
     //get all houses
     async getAll(){
         let houses = [];
-        await axios.get("http://localhost:8080/api/houses")
+        await Http.get("/houses")
            .then( res => {
                console.log({res});
                 houses = res.data
@@ -17,19 +17,20 @@ class PropertyService{
     //get a single houses
     async getOneById(id){
         let house = [];
-        await axios.get(`http://localhost:8080/api/houses/${id}`)
+        await Http.get(`/houses/${id}`)
            .then( res => {
                 house = res.data
             })
             .catch( err => {
                 console.log({err});
             })
+        console.log(house);
        return house;
     }
     //get recent houses
     async getRecent(){
         let houses = [];
-        await axios.get(`http://localhost:8080/api/houses/recent`)
+        await Http.get(`/houses/recent`)
            .then( res => {
                 houses = res.data
             })
@@ -41,7 +42,7 @@ class PropertyService{
     //get all houses of a particular agent
     async getAllByAgentId(agentId){
         let houses = [];
-        await axios.get(`http://localhost:8080/api/agents/${agentId}/houses/`)
+        await Http.get(`/agents/${agentId}/houses/`)
            .then( res => {
                 houses = res.data
             })
@@ -53,7 +54,7 @@ class PropertyService{
     //get a specific house of a particular agent
     async getOneByAgentId(agentId,houseId){
         let house = [];
-        await axios.get(`http://localhost:8080/api/agents/${agentId}/houses/${houseId}`)
+        await Http.get(`/agents/${agentId}/houses/${houseId}`)
            .then( res => {
                 house = res.data
             })
@@ -65,7 +66,7 @@ class PropertyService{
     //get a specific house of a particular agent
     async searchProperties(keywords){
         let houses = [];
-        await axios.get(`http://localhost:8080/api/houses/search`,
+        await Http.get(`/houses/search`,
             {params:{
                 keywords:keywords
             }
@@ -78,13 +79,33 @@ class PropertyService{
             })
        return houses;
     }
+
+    //get a paged data
+    async getByPage(page,size){
+        let houses = [];
+        await Http.get(`/houses/page`,
+            {
+                params:{
+                    "page": page,
+                    "size": size
+                }
+            }
+        )
+           .then( res => {
+                houses = res.data
+            })
+            .catch( err => {
+                console.log({err});
+            })
+       return houses;
+    }
     //save house
     async save(data){
         let response = null;
-        console.log(data);
-        await axios.post(`http://localhost:8080/api/houses/`, data)
+        
+        await Http.post(`/houses/`, data)
            .then( res => {
-                response = res.data
+               response = res.data
             })
             .catch( err => {
                 console.log({err});
@@ -94,7 +115,7 @@ class PropertyService{
     //update  house
     async update(houseId, data){
         let response = null;
-        await axios.put(`http://localhost:8080/api/houses/${houseId}`, data)
+        await Http.put(`/houses/${houseId}`, data)
            .then( res => {
                 response = res.data
             })
@@ -107,7 +128,7 @@ class PropertyService{
     //delete house
     async delete(houseId){
         let response = null;
-        await axios.delete(`http://localhost:8080/api/houses/${houseId}`)
+        await Http.delete(`/houses/${houseId}`)
            .then( res => {
                 response = res.data
             })
@@ -119,7 +140,7 @@ class PropertyService{
     //delete all houses
     async deleteAll(){
         let response = null;
-        await axios.delete(`http://localhost:8080/api/houses/`)
+        await Http.delete(`/houses/`)
            .then( res => {
                 response = res.data
             })
@@ -131,7 +152,7 @@ class PropertyService{
     //book house
     async book(houseId, data){
         let response = null;
-        await axios.post(`http://localhost:8080/api/houses/${houseId}/book`, data)
+        await Http.post(`/houses/${houseId}/book`, data)
            .then( res => {
                 response = res.data
             })

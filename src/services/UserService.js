@@ -1,12 +1,12 @@
-import axios from "axios";
+import Http from "./http";
 
 class UserService{
     //get all users
     async getAll(){
         let users = [];
-        await axios.get("https://localhost:8080/api/users/")
+        await Http.get("/agents/")
             .then(res =>{
-                users = res.data
+                users = res.data;
             })
             .catch( err => {
                 console.log({err})
@@ -16,7 +16,7 @@ class UserService{
     //get single user users
     async getOneById(userId){
         let users = [];
-        await axios.get(`https://localhost:8080/api/users/${userId}`)
+        await Http.get(`/users/${userId}`)
             .then(res =>{
                 users = res.data
             })
@@ -25,10 +25,31 @@ class UserService{
             });
         return users;
     }
+
+    //get a paged data
+    async getByPage(page,size){
+        let users = [];
+        await Http.get(`/users/page`,
+            {
+                params:{
+                    "page": page,
+                    "size": size
+                }
+            }
+        )
+           .then( res => {
+                users = res.data
+            })
+            .catch( err => {
+                console.log({err});
+            })
+       return users;
+    }
+
     //save users
     async save(data){
         let response = null;
-        await axios.post("https://localhost:8080/api/users/", data)
+        await Http.post("/users/", data)
             .then(res =>{
                 response = res.data
             })
@@ -40,7 +61,7 @@ class UserService{
     //update user
     async update(userId, data){
         let response = null;
-        await axios.put(`https://localhost:8080/api/users/${userId}`,data)
+        await Http.put(`/users/${userId}`,data)
             .then(res =>{
                 response = res.data
             })
@@ -52,7 +73,7 @@ class UserService{
     //update user
     async changeAccount(userId, data){
         let response = null;
-        await axios.post(`https://localhost:8080/api/users/${userId}/account`,data)
+        await Http.post(`/users/${userId}/account`,data)
             .then(res =>{
                 response = res.data
             })
@@ -64,7 +85,7 @@ class UserService{
     //update user
     async changeImage(userId, data){
         let response = null;
-        await axios.post(`https://localhost:8080/api/users/${userId}/image`,data)
+        await Http.post(`/users/${userId}/image`,data)
             .then(res =>{
                 response = res.data
             })
@@ -76,7 +97,7 @@ class UserService{
     //delete a single user
     async delete(userId){
         let response = null;
-        await axios.delete(`https://localhost:8080/api/users/${userId}`)
+        await Http.delete(`/users/${userId}`)
             .then(res =>{
                 response = res.data
             })
@@ -88,7 +109,7 @@ class UserService{
     //delete all users
     async deleteAll(){
         let response = null;
-        await axios.delete("https://localhost:8080/api/users/")
+        await Http.delete("/users/")
             .then(res =>{
                 response = res.data
             })

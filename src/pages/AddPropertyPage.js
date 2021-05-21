@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import queryParams from "../utils/queryParams";
 import PropertyService from "../services/PropertyService";
+import uploadFile from "../utils/fileUploader";
 
 export default class AddPropertyPage extends Component{
     constructor(props){
@@ -13,18 +14,20 @@ export default class AddPropertyPage extends Component{
             name :'',
             description:'',
             location:'',
-            capacityUnit: '',
-            capacity: '',
+            capacity_unit: '',
+            capacity: 1,
             type:'',
             price:0,
             deposit:0,
             stock:1,
+            slots:1,
             image:{},
             images:[]
         }
 
         this.getOneById = this.getOneById.bind(this);
         this.save = this.save.bind(this);
+        this.uploadImages = this.uploadImages.bind(this);
 
         this.onChangeName = this.onChangeName.bind(this);
         this.onChangeDescription = this.onChangeDescription.bind(this);
@@ -35,6 +38,7 @@ export default class AddPropertyPage extends Component{
         this.onChangePrice = this.onChangePrice.bind(this);
         this.onChangeDeposit = this.onChangeDeposit.bind(this);
         this.onChangeStock = this.onChangeStock.bind(this);
+        this.onChangeSlots = this.onChangeSlots.bind(this);
         this.onChangeImage = this.onChangeImage.bind(this);
         this.onChangeImages = this.onChangeImages.bind(this);
     }
@@ -53,23 +57,44 @@ export default class AddPropertyPage extends Component{
             property: property
         });
     }
+
+    async uploadImages () {
+        let image = await uploadFile(this.state.image);
+        let images = ["","","",""];
+
+        if(this.state.images.length > 0){
+            for (let i = 0; i < this.state.images.length; i++) {
+                const img = this.state.images[i];
+                images[i] = await uploadFile(img);
+            }
+        }
+        
+        let data = {
+            "image": image,
+            "images": images
+        }
+        return data;
+    }
     async save(){
         let id = queryParams("id");
         let action = queryParams("action");
         let response = null;
+        
+        let {image, images} = this.uploadImages();
 
         let data = {
-            "name" : this.state.name,
-            "description":this.state.description,
-            "location":this.state.location,
-            "capacityUnit": this.state.capacityUnit,
-            "capacity": this.state.capacity,
-            "stock": this.state.stock,
-            "type": this.state.type,
-            "price": this.state.price,
-            "deposit": this.state.deposit,
-            "image": this.state.image,
-            "images": this.state.images
+            "name" : this.state.name || this.state.property.name,
+            "description":this.state.description || this.state.property.description,
+            "location":this.state.location || this.state.property.location,
+            "capacity_unit": this.state.capacity_unit || this.state.property.capacity_unit,
+            "capacity": this.state.capacity || this.state.property.capacity,
+            "stock": this.state.stock || this.state.property.stock,
+            "slots": this.state.slots || this.state.property.slots,
+            "type": this.state.type || this.state.property.type,
+            "price": this.state.price || this.state.property.price,
+            "deposit": this.state.deposit || this.state.property.deposit,
+            "image": image || this.state.property.image,
+            "images":images || (this.state.property.image || [])
         };
 
         if(action === "edit" && id !== null){
@@ -105,7 +130,7 @@ export default class AddPropertyPage extends Component{
     }
     onChangeCapacityUnit(e){
         this.setState({
-            capacityUnit:e.target.value
+            capacity_unit:e.target.value
         });
     }
     onChangeCapacity(e){
@@ -126,6 +151,11 @@ export default class AddPropertyPage extends Component{
     onChangeStock(e){
         this.setState({
             stock:e.target.value
+        });
+    }
+    onChangeSlots(e){
+        this.setState({
+            slots:e.target.value
         });
     }
     onChangeImage(e){
@@ -171,9 +201,9 @@ export default class AddPropertyPage extends Component{
                                                         <select className="form-control " id="type" name="type" onChange={this.onChangeType}>
                                                             <option value="#" disabled className="text-muted">Select Type
                                                             </option>
-                                                            <option value="1">Single Room</option>
-                                                            <option value="1">Single Room</option>
-                                                            <option value="1">Single Room</option>
+                                                            <option value="single room">Single Room</option>
+                                                            <option value="bed sitter">Bed Sitter</option>
+                                                            <option value="house">House</option>
                                                         </select>
                                                     </div>
                                                     <div className="form-group">
@@ -182,8 +212,8 @@ export default class AddPropertyPage extends Component{
                                                             <option value="1" disabled className="text-muted">Select Capacity
                                                                 Unit
                                                             </option>
-                                                            <option value="1">Rooms</option>
-                                                            <option value="1">Occupants</option>
+                                                            <option value="rooms">Rooms</option>
+                                                            <option value="occupants">Occupants</option>
                                                         </select>
                                                     </div>
                                                     <div className="form-group">
@@ -200,29 +230,34 @@ export default class AddPropertyPage extends Component{
                                                         Stock , Location and Deposit Amount
                                                     </h4>
                                                     <div className="form-group">
-                                                        <label htmlFor="stock">Stock or Slots available</label>
+                                                        <label htmlFor="stock">Stock </label>
                                                         <input type="number" className="form-control " id="stock" name="stock"
-                                                               min="1" value="1" onChange={this.onchangeStock}/>
+                                                               min="1" defaultValue="1" onChange={this.onchangeStock}/>
+                                                    </div>
+                                                    <div className="form-group">
+                                                        <label htmlFor="slots">Slots Available </label>
+                                                        <input type="number" className="form-control " id="slots" name="slots"
+                                                               min="1" defaultValue="1" onChange={this.onchangeSlots}/>
                                                     </div>
                                                     <div className="form-group">
                                                         <label htmlFor="location">Property Location</label>
                                                         <select className="form-control " id="location" name="location">
                                                             <option value="#" disabled className="text-muted" onChange={this.onChangeLocation}>Select Location
                                                             </option>
-                                                            <option value="1">Njoks</option>
-                                                            <option value="1">Gates</option>
-                                                            <option value="1">Right</option>
+                                                            <option value="njokerio">Njoks</option>
+                                                            <option value="gate">Gates</option>
+                                                            <option value="right">Right</option>
                                                         </select>
                                                     </div>
                                                     <div className="form-group">
-                                                        <label htmlFor="price">Deposit</label>
+                                                        <label htmlFor="price">Monthly Price</label>
                                                         <input type="number" className="form-control " id="price"
-                                                               name="price" min="1" value="1" onChange={this.onChangePrice}/>
+                                                               name="price" min="1" defaultValue="1" onChange={this.onChangePrice}/>
                                                     </div>
                                                     <div className="form-group">
                                                         <label htmlFor="deposit">Deposit</label>
                                                         <input type="number" className="form-control " id="deposit"
-                                                               name="deposit" min="1" value="1" onChange={this.onChangeDeposit}/>
+                                                               name="deposit" min="1" defaultValue="1" onChange={this.onChangeDeposit}/>
                                                     </div>
                                                 </div>
                                                 <div className="other-details">
@@ -294,7 +329,7 @@ export default class AddPropertyPage extends Component{
                                                 </div>
                                             </div>
                                             <div className="col-12">
-                                                <button type="button" className="btn btn-sm btn-secondary px-2"> Preview</button>
+                                                {/* <button type="button" className="btn btn-sm btn-secondary px-2"> Preview</button> */}
                                                 <button type="button" className="btn btn-sm btn-primary px-2" onClick={this.save}>Publish</button>
                                             </div>
                                         </div>

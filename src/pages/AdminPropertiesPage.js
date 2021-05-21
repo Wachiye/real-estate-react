@@ -101,8 +101,8 @@ const Property = ({property}) => {
             </td>
             <td className="type-col">{property.type}</td>
             <td className="stock-col">{property.stock}</td>
-            <td className="slots-col">{property.slot}</td>
-            <td className="views-col">{property.view}</td>
+            <td className="slots-col">{property.slots}</td>
+            <td className="views-col">{property.views}</td>
             <td className="date-col">{property.date}</td>
             <td className="text-center action-col">
                 <div className="list-inline">

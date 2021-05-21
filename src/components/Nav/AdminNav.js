@@ -11,7 +11,7 @@ const AdminNav = () => {
     return (
         <div className="navigation">
             <div className="close show-nav-btn fa fa-close position-absolute text-light d-lg-none"
-                 data-nav-className="navigation"></div>
+                 data-nav-classname="navigation"></div>
             <ul className="list-unstyled">
                 <li>
                     <a href="/admin/dashboard">

@@ -63,7 +63,7 @@ export default  class PropertyPage extends Component{
 
                         <div className="col-12 col-md-6 mb-2">
                             <div className="details">
-                                <h3 className="title">{property.houseName}</h3>
+                                <h3 className="title">{property.name}</h3>
                                 <p className="desc">{property.description}</p>
                                 <p>
                                     Pay Ksh
@@ -101,16 +101,8 @@ export default  class PropertyPage extends Component{
                                             <td>{property.location}</td>
                                         </tr>
                                         <tr>
-                                            <th>Apartment</th>
-                                            <td>Brothers</td>
-                                        </tr>
-                                        <tr>
                                             <th>Capacity</th>
-                                            <td>{`${property.capacity} ${property.capacityUnit}`}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Dimensions(ft)</th>
-                                            <td>9 x 12</td>
+                                            <td>{`${property.capacity} ${property.capacity_unit}`}</td>
                                         </tr>
                                         <tr>
                                             <th>Monthly Payment</th>
@@ -124,15 +116,15 @@ export default  class PropertyPage extends Component{
                                         <tbody>
                                         <tr>
                                             <th>Name</th>
-                                            <td>Agent XYZ</td>
+                                            <td>{ property.agent && `${property.agent.first_name} ${property.agent.first_name}`}</td>
                                         </tr>
                                         <tr>
                                             <th>Email</th>
-                                            <td>example@domain.com</td>
+                                            <td>{property.agent && property.agent.email}</td>
                                         </tr>
                                         <tr>
                                             <th>Phone</th>
-                                            <td>2547-123-45678</td>
+                                            <td>{property.agent && property.agent.phone}</td>
                                         </tr>
                                         </tbody>
                                     </table>
