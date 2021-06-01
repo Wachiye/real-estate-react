@@ -1,6 +1,5 @@
 import AuthService from "../../services/AuthService";
 
-
 const AdminNav = () => {
     const logout = async () =>{
         let res = await AuthService.logout();
@@ -11,7 +10,7 @@ const AdminNav = () => {
     return (
         <div className="navigation">
             <div className="close show-nav-btn fa fa-close position-absolute text-light d-lg-none"
-                 data-nav-classname="navigation"></div>
+                 data-nav-class="navigation"></div>
             <ul className="list-unstyled">
                 <li>
                     <a href="/admin/dashboard">
@@ -26,7 +25,7 @@ const AdminNav = () => {
                     </a>
                 </li>
                 <li>
-                    <a href="/admin/properties?action=add">
+                    <a href="/admin/addProperty">
                         <i className="fa fa-plus"></i>
                         New Property
                     </a>

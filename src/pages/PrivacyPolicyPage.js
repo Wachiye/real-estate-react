@@ -92,8 +92,8 @@ export default  class PrivacyPolicyPage extends Component{
                             </article>
                     </div>
                         
-                        <div className="col-8 offset-2 text-center mb-2">
-                            <a href="/terms-and-conditions" className="btn-link btn-warning">Terms and Conditions</a>
+                        <div className="col-8 offset-2 text-center mb-2 links">
+                            <a href="/terms-and-conditions">Terms and Conditions</a>
                         </div>
                     </div>
                 </div>

@@ -8,14 +8,8 @@ export default  class AboutPage extends Component{
 
                     <div id="about">
                         <h2 className="text-center main-title">About Us</h2>
-                        <p className="lead">
-                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consectetur reiciendis voluptatum
-                            ullam,
-                            sunt in quibusdam accusantium ab rem maxime fugit culpa vitae ratione magni sint facilis vel
-                            eaque
-                            molestias deserunt consequatur harum nihil repudiandae sapiente. Expedita sit eius, repellat
-                            rerum
-                            nulla eaque aperiam perspiciatis iste, tempore repudiandae quia quasi maxime!
+                        <p className="text-center lead">
+                            <span className="text-primary mr-1">HouseTab</span> is a Residential Real Estate Online Platform. While many real estate online platforms offer property services such as development, appraisal, marketing, selling, leasing, and management, our main focus if to offer affordable and secure homes for individuals and families within Egerton fraternity. HouseTab offers a platform for real estate agents to upload their properties for listing at a monthly subscription.
                         </p>
                     </div>
                     <div className="row my-3" id="services">
@@ -24,19 +18,52 @@ export default  class AboutPage extends Component{
                         </div>
                     </div>
                     {/*services loop here*/}
-                    <div className="row mb-1 service">
-                        <div className="col-md-4">
-                            <img src="./images/property-listing.jpg" alt="" className="img-fluid" />
+                    <div className="mb-1 services">
+                        <div className="service">
+                            <div className="card">
+                                <div className="card-header">
+                                   <h4 className="card-title">Property Listing</h4>
+                                </div>
+                                <div className="card-body">
+                                    <p className="lead card-text">
+                                        Single-family dwellings, apartments, Attached and Villas 
+                                    </p>
+                                </div>
+                            </div>
                         </div>
-                        <div className="col-md-8 service-body">
-                            <h4 className="title">Property Listing</h4>
-                            <p className="lead">
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cupiditate dicta aliquid
-                                obcaecati sed
-                                aut nostrum possimus consequatur quo delectus provident.
-                            </p>
+                        <div className="service">
+                            <div className="card">
+                                <div className="card-header">
+                                   <h4 className="card-title">Brokage</h4>
+                                </div>
+                                <div className="card-body">
+                                    <p className="lead card-text">Facilitating secure deposit transaction between tenants and property owners</p>
+                                </div>
+                            </div>
                         </div>
-
+                        <div className="service">
+                            <div className="card">
+                                <div className="card-header">
+                                   <h4 className="card-title">Sales and Marketing</h4>
+                                </div>
+                                <div className="card-body">
+                                    <p className="lead card-text">Creating marketing materials and selling inventories</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="my-2">
+                        <ul className="list-inline text-center">
+                            <li className="list-inline-item">
+                                <i className="fa fa-check-square text-primary"></i> Affordability
+                            </li>
+                            <li className="list-inline-item">
+                                <i className="fa fa-check-square text-primary"></i> Security
+                            </li>
+                            <li className="list-inline-item">
+                                <i className="fa fa-check-square text-primary"></i> Trust
+                            </li>
+                        </ul>
                     </div>
                     {/*end of services loop*/}
                     <div className="row mb-2 team">

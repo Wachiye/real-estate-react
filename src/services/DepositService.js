@@ -6,8 +6,7 @@ class DepositService{
         let deposits = [];
         await Http.get("/deposits")
            .then( res => {
-               console.log({res});
-                deposits = res.data
+               deposits = res.data
             })
             .catch( err => {
                 console.log({err});

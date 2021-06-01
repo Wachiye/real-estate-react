@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "https://dfed33f017e9.ngrok.io/api";
+const baseURL = "http://localhost:8080/api";
 
 const Http = axios.create({
     baseURL: baseURL,
@@ -14,9 +14,10 @@ Http.interceptors.response.use( (res) => {
     if(res.status === 204){
         res = {
             data: {
+                title:"Operation Successful",
+                type:"success",
                 message: "Operation was successful. No data returned"
-            },
-            error:null
+            }
         }  
     }
 
@@ -25,16 +26,17 @@ Http.interceptors.response.use( (res) => {
 }, (err) => {
 
     if(err.request){
-        let  data = {
-            "data": [],
-            "error": {
+        return {
+            data: {
                 code: 500,
                 name: 'connection_err',
-                message: 'Could not connect to the server. Check your internet connection and try again'
+                title:"SERVER_CONNECTION_ERR",
+                type:"error",
+                message: 'Sorry, but could not connect to the server. Try again later.'
             }
-        }
-        return data;
+        };
     }
+
 });
 
 export default Http;

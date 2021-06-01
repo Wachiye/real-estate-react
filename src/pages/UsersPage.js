@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import queryParams from "../utils/queryParams";
 import UserService from "../services/UserService";
-
+import {showAlert, showConfirmAlert} from "../utils/showAlert";
 
 export default class UsersPage extends Component{
     constructor(props){
@@ -38,22 +38,19 @@ export default class UsersPage extends Component{
             data_length: users.length
         });
     }
-    async deleteUser(user_id){
-        // let response = await UserService.delete(user_id);
-        // this.setState({
-        //     response: response,
-        // });
-        // if(response.success){
-            this.setState({
-                users: this.state.users.filter( u => u.id !== user_id),
-                response:{
-                    "title":"SUCCESS",
-                    "type":"danger",
-                    "message":"User has been deleted successfully",
-                    "success":true
-                }
-            });
-        // }
+    async deleteUser(id){
+        let response = null;
+        showConfirmAlert('DELETE','user account').then( async confirm => {
+            if(confirm){
+                response = await UserService.delete(id);
+                this.setState({
+                    users: this.state.users.filter( u => u.id !== id),
+                    response: response
+                });
+
+                showAlert(response);
+            }
+        });
     }
 
     render(){

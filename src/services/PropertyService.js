@@ -6,8 +6,7 @@ class PropertyService{
         let houses = [];
         await Http.get("/houses")
            .then( res => {
-               console.log({res});
-                houses = res.data
+               houses = res.data
             })
             .catch( err => {
                 console.log({err});
@@ -130,11 +129,11 @@ class PropertyService{
         let response = null;
         await Http.delete(`/houses/${houseId}`)
            .then( res => {
-                response = res.data
-            })
+               response = res.data || res.error;
+             })
             .catch( err => {
                 console.log({err});
-            })
+            });
        return response;
     }
     //delete all houses

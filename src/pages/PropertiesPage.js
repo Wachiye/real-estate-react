@@ -3,6 +3,7 @@ import React , {Component} from "react";
 import FilterNav from "../components/Nav/FilterNav";
 
 import PropertyService from '../services/PropertyService';
+import formatToCurrency from "../utils/formatCurrency";
 
 export default  class PropertiesPage extends Component{
     constructor( props){
@@ -32,6 +33,13 @@ export default  class PropertiesPage extends Component{
 
     async getAll(){
         let properties = await PropertyService.getAll();
+        if(properties.length > 0){
+            properties.forEach( p => { 
+                p.price = formatToCurrency(p.price); 
+                p.deposit = formatToCurrency(p.deposit);
+            });
+        }
+
         this.setState({
             properties: properties
         });

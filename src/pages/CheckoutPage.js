@@ -10,7 +10,6 @@ import showText from "../utils/showText";
 import {baseURL} from "../services/http";
 import wait from "../utils/wait";
 
-import * as $ from "jquery";
 export default  class CheckoutPage extends Component{
     constructor(props){
         super(props);

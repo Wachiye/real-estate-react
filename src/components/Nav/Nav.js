@@ -1,13 +1,16 @@
 const  Nav = () =>{
     return (
-        <nav className="navbar navbar-expand-sm">
+        <nav className="navbar navbar-expand-md">
             <div className="container">
-                <a className="navbar-brand d-sm-none" href="/">Logo</a>
-                <button className="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbar">
-                    <span className="navbar-toggler-icon"></span>
+                <a className="navbar-brand" href="/">HouseTab</a>
+                <button className="navbar-toggler nav-btn " type="button" data-toggle="collapse" data-target="#navbar">
+                    <span className="fa fa-bars"></span>
                 </button>
                 <div className="collapse navbar-collapse" id="navbar">
                     <ul className="navbar-nav mr-auto">
+                        
+                    </ul>
+                    <ul className="navbar-nav ml-md-auto">
                         <li className="nav-item">
                             <a className="nav-link" href="/">Home</a>
                         </li>
@@ -20,11 +23,14 @@ const  Nav = () =>{
                         <li className="nav-item">
                             <a className="nav-link" href="/contact">Contact Us</a>
                         </li>
-                    </ul>
-                    <ul className="navbar-nav ml-md-auto">
                         <li className="nav-item">
-                            <a className="btn btn-sm search-toggle-btn" href="#search" >
-                                <i className="fa fa-2x fa-search"></i>
+                            <a className="nav-link search-toggle-btn " href="#search" title="Search" >
+                                <i className="fa  fa-search"></i>
+                            </a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="/login" title="Login/Signup" >
+                                Login
                             </a>
                         </li>
                     </ul>

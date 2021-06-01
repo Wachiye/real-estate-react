@@ -29,6 +29,7 @@ import DepositsPage from "../pages/DepositsPage";
 import SubscriptionsPages from "../pages/SubscriptionsPages";
 import UsersPage from "../pages/UsersPage";
 import NotFoundPage from "../pages/NotFoundPage";
+import AddPropertyPage from "../pages/AddPropertyPage";
 
 const Routes = () => {
     return (
@@ -106,6 +107,12 @@ const Routes = () => {
                     path="/admin/properties"
                     exact
                     component={AdminPropertiesPage}
+                    layout={AdminLayout}
+                />
+                <PublicRoute
+                    path="/admin/addProperty"
+                    exact
+                    component={AddPropertyPage}
                     layout={AdminLayout}
                 />
                 <PublicRoute

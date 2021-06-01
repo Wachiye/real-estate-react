@@ -17,20 +17,21 @@ html, body{
 .navbar{
     height: fit-content;
     background: #1789FC !important;
+    color: #DCE0D9 !important;
 }
-.nav-item{
-    height: fit-content;
-}
-.nav-item, .nav-link{
+.nav-item, .nav-link,.navbar-brand, .nav-btn {
     font-size: 1.2rem;
     font-weight: bolder;
     cursor: pointer;
     color: #DCE0D9 !important;
 }
 
-.nav-link:hover{
-    border-bottom: 1px solid #DCE0D9 !important ;
-    color: #DCE0D9 !important ;
+.nav-link:hover, .nav-btn:hover{
+    border: 1px solid #DCE0D9 inset !important ;
+    border-radius: 8px;
+    color: #1789fc !important ;
+    background-color: #DCE0D9;
+    padding: 8px;
 }
 .carousel-inner > .carousel-item > img{
     all: initial;
@@ -68,7 +69,7 @@ html, body{
 .main-title{
     font-size: 2rem;
     letter-spacing: 2px;
-    color: #343340;
+    color: #078fff;
     text-transform: uppercase;
     margin-top: 20px;
     margin-bottom: 10px;
@@ -77,7 +78,7 @@ html, body{
     content: "";
     width: 240px;
     height: 3px;
-    background-color: rgb(241, 207, 12);
+    background-color:#078fff;
     margin: auto;
     display: block;
 }
@@ -98,11 +99,31 @@ html, body{
     background-color: #078fff;
     display: block;
 }
+.services{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap:10px;
+}
 
-.service{
+.services > .service{
+    background-color: #ffffff;
+    margin-bottom: 5px;
+    border: 1px solid #1789FC;
+    border-radius: 5px;
+}
+.service .card{
+    background: transparent !important;
+}
+.service .card-header{
+    background: #1789FC !important;
+    color: #DCE0D9 !important;
+    text-align: center;
+    text-transform: uppercase;
+}
+/* .service{
     padding: 20px;
     background: #FFFF;
-}
+} */
 .service-body{
     padding-top: 50px;
     padding-bottom: 20px;
@@ -117,11 +138,10 @@ html, body{
     all:initial;
     padding: 10px;
     margin-bottom: 5px;
-    box-shadow: 1px 1px 3px #f1f1f1;
+    box-shadow: 1px 1px 3px #686565,-1px -1px 3px #686565 ;
     border-radius: 10px;
     background:#fff ;
     color:  #078;
-    border: 1px solid #078;
     max-height: 220px;
 }
 .member img{
@@ -138,16 +158,16 @@ html, body{
     text-align: center;
 }
 .links a, .apply-btn{
-    text-decoration: none;
-    background: rgb(241, 207, 12);
-    color: #343340;
+    text-decoration: none !important;
+    background: #078fff;
+    color: #DCE0D9 !important;
     border-radius: 10px;
     padding: 5px;
     margin-bottom: 3px;
 }
 .links a:hover, .apply-btn:hover{
-    background: #443e1e;
-    color: rgb(241, 207, 12);
+    background: #add2f5 !important;
+    color:#078fff !important;
 }
 
 /*.alert{*/
@@ -245,12 +265,42 @@ html, body{
     margin: 0 auto;
     z-index: 999;
 }
+.nav-tabs .nav-item > .nav-link{
+    text-decoration: none !important;
+    background:  #DCE0D9;
+    color: #078FFF !important;
+    border-radius: 10px;
+    padding: 5px;
+    margin-bottom: 3px;
+}
+.nav-tabs .nav-item > .nav-link:hover{
+    background: #078BFF !important;
+    color:#DCE0D9 !important;
+}
 footer .footer{
-    background: #343340;
-    color:  rgb(241, 207, 12) !important;
+    background: #1789FC !important;
+    color: #DCE0D9 !important;
     min-height: 70px;
     padding-top: 20px;
     padding-bottom: 20px;
+}
+.footer a{
+    color: #DCE0D9 !important; 
+    
+}
+.footer .fa{
+    width: 48px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.footer .fa:hover{
+    border: 1px solid #DCE0D9 inset! important ;
+    border-radius: 8px;
+    color: #1789fc !important ;
+    background-color: #DCE0D9;
+    padding: 8px;
 }
 .testimonial{
     position: relative;
@@ -634,6 +684,11 @@ a.deco-none{
         height: 80px;
         max-width: 150px;
         max-height: 150px;
+    }
+    .services{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap:10px;
     }
     .testimonials{
         display: flex;

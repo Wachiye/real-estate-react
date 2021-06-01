@@ -1,4 +1,11 @@
 import React, {Component} from "react";
+import {Line, Pie} from "react-chartjs-2";
+import DepositService from "../services/DepositService";
+import PropertyService from "../services/PropertyService";
+import UserService from "../services/UserService";
+import formatToCurrency from "../utils/formatCurrency";
+import randomColor from "../utils/randomColor";
+
 export default class DashboardPage extends Component{
     constructor(props){
         super(props);
@@ -10,11 +17,136 @@ export default class DashboardPage extends Component{
             unbooked_properties:0,
             unread_messages:0,
             deposit_amount:0,
+            line_chart_data:{},
+            pie_chart_data:{}
         }
+
+        this.getChartData = this.getChartData.bind(this);
+        this.setPieChartData = this.setPieChartData.bind(this);
+        this.setLineChartData = this.setLineChartData.bind(this);
     }
 
+    async componentDidMount(){
+        let users, properties, unbooked = 0,recent_deposits=[];
+
+        users = await UserService.getAll();
+        properties = await PropertyService.getAll();
+        recent_deposits = await DepositService.getRecent();
+
+        
+        
+        if(properties.length > 0){
+            //calculate the number of unbooked products
+            unbooked = properties.filter( p => p.slots === p.stock).length;
+        }
+
+        this.setState({
+            users: users.length || 0,
+            properties: properties.length || 0,
+            unbooked_properties: unbooked,
+            recent_deposits: recent_deposits
+        });
+
+        console.log({recent_deposits});
+        await this.getChartData();
+
+    }
+    async getChartData(){
+        let deposits, amount = 0,chart_labels = [],pie_chart_amounts = [0,0,0,0],
+         line_chart_amounts = [];
+
+        deposits = await DepositService.getAll();
+        
+        if(deposits.length > 0 ){
+            
+            deposits.forEach( d => {
+                //accumulate the amount 
+                amount += d.amount
+                //check if 
+                if(!chart_labels.includes(d.type))
+                    chart_labels.push(d.type)
+                //get index of the d.type in chart label
+                let index = chart_labels.indexOf(d.type);
+
+                //accumulate the amount at this index
+                pie_chart_amounts[index] += d.amount;
+            });
+
+            //initializing the line_chart_amounts to 0
+            for (let i = 0; i < chart_labels.length; i++) {
+                line_chart_amounts[i] = [0,0,0,0,0,0,0,0,0,0,0,0];
+            }
+
+            deposits.forEach( d => {
+                //get month for data
+                let date = new Date(d.created_at);
+                let month = date.getMonth(); //returns index of month from 0 to 11.
+                
+                for (let i = 0; i < chart_labels.length; i++) {
+                    if(chart_labels[i] === d.type){
+                        line_chart_amounts[i][month] += d.amount;
+                    }
+                }
+            });
+        }
+
+        this.setState({
+            deposit_amount: formatToCurrency(amount),
+            pie_chart_data: this.setPieChartData(chart_labels, pie_chart_amounts),
+            line_chart_data: this.setLineChartData(chart_labels, line_chart_amounts)
+        });
+    }
+
+    setPieChartData(labels, data_array){
+        return {
+            labels: labels,
+            datasets: [
+                {
+                label: 'Category Booking',
+                backgroundColor: [
+                    randomColor(),
+                    randomColor(),
+                    randomColor(),
+                    randomColor()
+                ],
+                hoverBackgroundColor: [
+                randomColor(),
+                randomColor(),
+                randomColor(),
+                randomColor()
+                ],
+                data: data_array
+                }
+            ]
+        }
+        
+    }
+
+    setLineChartData(labels, data_array){
+        let datasets = [];
+
+        if(labels.length !== data_array.length){
+            throw new Error("Invalid data array");
+        }
+        else{
+            for (let i = 0; i < labels.length; i++) {
+                datasets.push({
+                    label: labels[i],
+                    backgroundColor: randomColor(),
+                    borderColor: randomColor(),
+                    borderWidth: 2,
+                    data: data_array[i]
+                });
+            }
+        }
+
+        return {
+            labels: ['Jan', 'Feb', 'Mar','Apr', 'May', 'Jun', 'Jul','Aug','Sept', 'Oct', 'Nov','Dec'],
+            datasets: datasets
+        }
+    }
     render() {
-        let {deposits} = this.state;
+        let {recent_deposits, line_chart_data, pie_chart_data} = this.state;
         return(
             <div className="dashboard">
 
@@ -52,21 +184,51 @@ export default class DashboardPage extends Component{
 
                 <div className="card bg-transparent main-card">
                     <div className="card-header bg-transparent d-flex justify-content-between">
-                        <h4 className="text-primary">Monthly Desposit Analysis</h4>
+                        <h4 className="text-primary">Monthly Deposit Analysis</h4>
                         <i className="fa fa-2x fa-line-chart"></i>
                     </div>
                     <div className="card-body">
-                        <canvas id="monthly-analysis"></canvas>
+                        <Line
+                        data={line_chart_data}
+                        options={{
+                            title:{
+                            display:true,
+                            text:'Average Rainfall per month',
+                            fontSize:20
+                            },
+                            legend:{
+                            display:true,
+                            position:'right'
+                            }
+                        }}
+                        />
                     </div>
                 </div>
 
                 <div className="card  bg-transparent minor-card">
                     <div className="card-header bg-transparent d-flex justify-content-between">
-                        <h4 className="text-primary">Property Booking Analysis</h4>
+                        <h4 className="text-primary">Contribution By Category</h4>
                         <i className="fa fa-2x fa-pie-chart"></i>
                     </div>
                     <div className="card-body">
-                        <canvas id="booking-analysis"></canvas>
+                        <Pie
+                            data={pie_chart_data}
+                            height={300}
+                            width={300}
+                            options={{
+                                title:{
+                                display:true,
+                                text:'Average Rainfall per month',
+                                fontSize:20
+                                },
+                               
+                                legend:{
+                                display:true,
+                                position:'right'
+                                },
+                                maintainAspectRatio: false
+                            }}
+                        />
                     </div>
                 </div>
 
@@ -91,7 +253,7 @@ export default class DashboardPage extends Component{
                                 </tr>
                             </thead>
                             <tbody className="deposits">
-                                {deposits && deposits.map( (item, index) => {
+                                {recent_deposits && recent_deposits.map( (item, index) => {
                                     return(
                                         <DepositRow deposit={item} key={index} />
                                     );

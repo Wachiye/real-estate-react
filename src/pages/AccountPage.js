@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import queryParams from "../utils/queryParams";
 import UserService from "../services/UserService";
 import AuthService from "../services/AuthService";
-
+import {showAlert, showConfirmAlert} from "../utils/showAlert";
 export default class AccountPage extends Component{
     constructor(props){
         super(props);
@@ -171,12 +171,19 @@ export default class AccountPage extends Component{
             response: response
         });
     }
-    async deleteAccount(){
-        let {user_id} = this.state;
-        let response = await UserService.delete(user_id);
-        this.setState({
-            response: response
+
+    async deleteAccount(id){
+        let response = null;
+        showConfirmAlert('DELETE','Account').then( async confirm => {
+            if(confirm){
+                response = await UserService.delete(id);
+                this.setState({
+                    response: response
+                });
+                showAlert(response);
+            }
         });
+  
     }
     render(){
         let {user} = this.state;
@@ -202,7 +209,7 @@ export default class AccountPage extends Component{
                                     <a href={`tel:${user.phone}`}>{user.phone}</a>
                                 </li>
                             </ul>
-                            <button type="button" className="btn btn-light text-secondary" onClick={this.deleteAccount}>Delete Account</button>
+                            <button type="button" className="btn btn-outline-danger btn-sm" onClick={()=>this.deleteAccount(user.id)}>Delete Account</button>
                             <hr className="my-1" />
                             <ul className="nav nav-tabs justify-content-between text-md-left flex-md-column">
                                 <li className="nav-item">

@@ -1,5 +1,6 @@
 const Alert = ({type,title,message}) =>{
     return (
+        
         <div className={`alert alert-${type} alert-dismissible fade show`}>
             <div className="alert-header">
                 <h6 className="alert-heading">{title || 'SERVER RESPONSE'}</h6>

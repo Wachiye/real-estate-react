@@ -13,7 +13,7 @@ const FilterNav = props => {
                            className="form-control form-control-sm" min="200" placeholder="Max" onChange={props.onChangePriceMax} />
                 </div>
                 <div className="col-4 col-md-2">
-                    <button type="button" className="btn btn-block btn-sm apply-btn" id="apply-price-btn" onClick={props.filterFunction}>
+                    <button type="button" className="btn btn-block btn-sm btn-info apply-btn" id="apply-price-btn" onClick={props.filterFunction}>
                         <i className="fa fa-filter"></i>
                     </button>
                 </div>
@@ -84,7 +84,7 @@ const FilterNav = props => {
                     </select>
                 </div>
                 <div className="col-sm-4">
-                    <button type="button" className="btn btn-sm btn-block apply-btn"
+                    <button type="button" className="btn btn-sm btn-block btn-info apply-btn"
                         id="apply-sort-btn" onClick={props.sortFunction}>Sort
                     </button>
                 </div>

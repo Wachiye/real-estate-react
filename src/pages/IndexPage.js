@@ -66,11 +66,7 @@ export default  class IndexPage extends Component{
                         <div className="col-sm-8 offset-sm-2">
                             <h1 className="text-center main-title">Welcome</h1>
                             <p className="lead">
-                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Modi ducimus atque doloremque
-                                est
-                                quasi cum nobis, eaque dicta facere quisquam assumenda ratione eveniet nulla animi
-                                fugiat optio.
-                                Placeat, adipisci cum!
+                                <span className="text-primary mr-1">HouseTab</span> is a Residential Real Estate Online Platform.
                             </p>
                             <a href="/about">
                                 <i className="fa fa-arrow-right"> Read More</i>

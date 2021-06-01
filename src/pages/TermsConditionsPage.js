@@ -103,8 +103,8 @@ export default  class TermsConditionsPage extends Component{
                             </article>
                     </div>
                         
-                        <div className="col-8 offset-2 text-center mb-2">
-                            <a href="./privacy-policy" className="btn btn-warning">Our Privacy Policy</a>
+                        <div className="col-8 offset-2 text-center mb-2 links">
+                            <a href="./privacy-policy" >Our Privacy Policy</a>
                         </div>
                     </div>
                 </div>

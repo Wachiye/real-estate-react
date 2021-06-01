@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import queryParams from "../utils/queryParams";
 import PropertyService from "../services/PropertyService";
 import uploadFile from "../utils/fileUploader";
-
+import swal from "sweetalert";
 export default class AddPropertyPage extends Component{
     constructor(props){
         super(props);
@@ -59,8 +59,12 @@ export default class AddPropertyPage extends Component{
     }
 
     async uploadImages () {
-        let image = await uploadFile(this.state.image);
+        let image = null;
         let images = ["","","",""];
+
+        if(this.state.image !== null){
+            image = await uploadFile(this.state.image);
+        }
 
         if(this.state.images.length > 0){
             for (let i = 0; i < this.state.images.length; i++) {
@@ -94,7 +98,7 @@ export default class AddPropertyPage extends Component{
             "price": this.state.price || this.state.property.price,
             "deposit": this.state.deposit || this.state.property.deposit,
             "image": image || this.state.property.image,
-            "images":images || (this.state.property.image || [])
+            "images":images || (this.state.property.images || [])
         };
 
         if(action === "edit" && id !== null){
@@ -103,6 +107,15 @@ export default class AddPropertyPage extends Component{
         else{
             response = await PropertyService.save(data);
         }
+
+        await swal({
+            title: response.title || response.error.title,
+            text: response.message || response.error.message,
+            icon: response.type || response.error.type,
+            timer: 2000,
+            button: false
+        });
+        
         this.setState({
             response:response
         });
@@ -170,6 +183,7 @@ export default class AddPropertyPage extends Component{
     }
     
     render() {
+        let {property} = this.state;
         return(
             <>
                 <div className="title no-u">
@@ -189,16 +203,16 @@ export default class AddPropertyPage extends Component{
                                                     </h4>
                                                     <div className="form-group">
                                                         <label htmlFor="name">Property Name</label>
-                                                        <input type="text" className="form-control " id="name" name="name" onChange={this.onChangeName}/>
+                                                        <input type="text" className="form-control " id="name" name="name" onChange={this.onChangeName} defaultValue={property.name || ''}/>
                                                     </div>
                                                     <div className="form-group">
                                                         <label htmlFor="desc">Property Description</label>
                                                         <textarea className="form-control " id="desc" name="desc"
-                                                                  rows="5" onChange={this.onChangeDescription}></textarea>
+                                                                  rows="5" onChange={this.onChangeDescription} defaultValue={property.description || ''}></textarea>
                                                     </div>
                                                     <div className="form-group">
                                                         <label htmlFor="type">Property Type</label>
-                                                        <select className="form-control " id="type" name="type" onChange={this.onChangeType}>
+                                                        <select className="form-control " id="type" name="type" onChange={this.onChangeType} defaultValue={property.type || ''}>
                                                             <option value="#" disabled className="text-muted">Select Type
                                                             </option>
                                                             <option value="single room">Single Room</option>
@@ -219,7 +233,7 @@ export default class AddPropertyPage extends Component{
                                                     <div className="form-group">
                                                         <label htmlFor="capacity">Capacity</label>
                                                         <input type="text" className="form-control " id="capacity"
-                                                               name="capacity" onChange={this.onChangeCapacity}/>
+                                                               name="capacity" onChange={this.onChangeCapacity} defaultValue={property.capacity || 1}/>
                                                     </div>
                                                 </div>
 
@@ -232,17 +246,17 @@ export default class AddPropertyPage extends Component{
                                                     <div className="form-group">
                                                         <label htmlFor="stock">Stock </label>
                                                         <input type="number" className="form-control " id="stock" name="stock"
-                                                               min="1" defaultValue="1" onChange={this.onchangeStock}/>
+                                                               min="1" defaultValue={property.stock || 1} onChange={this.onchangeStock}/>
                                                     </div>
                                                     <div className="form-group">
                                                         <label htmlFor="slots">Slots Available </label>
                                                         <input type="number" className="form-control " id="slots" name="slots"
-                                                               min="1" defaultValue="1" onChange={this.onchangeSlots}/>
+                                                               min="1" defaultValue={property.slots || 1} onChange={this.onchangeSlots}/>
                                                     </div>
                                                     <div className="form-group">
                                                         <label htmlFor="location">Property Location</label>
                                                         <select className="form-control " id="location" name="location">
-                                                            <option value="#" disabled className="text-muted" onChange={this.onChangeLocation}>Select Location
+                                                            <option value="#" disabled className="text-muted" onChange={this.onChangeLocation} defaultValue={property.location}>Select Location
                                                             </option>
                                                             <option value="njokerio">Njoks</option>
                                                             <option value="gate">Gates</option>
@@ -252,12 +266,12 @@ export default class AddPropertyPage extends Component{
                                                     <div className="form-group">
                                                         <label htmlFor="price">Monthly Price</label>
                                                         <input type="number" className="form-control " id="price"
-                                                               name="price" min="1" defaultValue="1" onChange={this.onChangePrice}/>
+                                                               name="price" min="1" defaultValue={property.price || 1} onChange={this.onChangePrice}/>
                                                     </div>
                                                     <div className="form-group">
                                                         <label htmlFor="deposit">Deposit</label>
                                                         <input type="number" className="form-control " id="deposit"
-                                                               name="deposit" min="1" defaultValue="1" onChange={this.onChangeDeposit}/>
+                                                               name="deposit" min="1" defaultValue={property.deposit || 1} onChange={this.onChangeDeposit}/>
                                                     </div>
                                                 </div>
                                                 <div className="other-details">
